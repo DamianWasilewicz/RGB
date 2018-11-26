@@ -29,7 +29,7 @@ liaoJ -- 2018-11-22 15:30
 Added bootstrap to design.pdf
 ==============================================================
 
-bambaS -- 2018-11-26 13:40
+bambaS, ChoiS -- 2018-11-26 13:40
 --------------------------------------------------------------
 Seperated idUser table into four seperate tables to each hold favorite restaurant/recipe and recently view restaurant/recipe.
 ==============================================================
@@ -37,4 +37,8 @@ Seperated idUser table into four seperate tables to each hold favorite restauran
 liK,liaoJ -- 2018-11-26 13:51
 --------------------------------------------------------------
 Updated readme to include roster and summary
+==============================================================
+bambaS, ChoiS -- 2018-11-26 13:54
+--------------------------------------------------------------
+Fixed Site Map
 ==============================================================
