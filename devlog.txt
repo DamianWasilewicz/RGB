@@ -40,8 +40,14 @@ using:
 -Zomato
 -Food2Fork
 ==============================================================
-
-
+liaoJ -- 2018-11-22 15:30
+--------------------------------------------------------------
+Added bootstrap to design.pdf
+==============================================================
+bambaS -- 2018-11-26 13:40
+--------------------------------------------------------------
+Seperated idUser table into four seperate tables to each hold favorite restaurant/recipe and recently view restaurant/recipe.
+==============================================================
 fristL -- TIMESTAMP
 --------------------------------------------------------------
 <Thing fristL did.>
