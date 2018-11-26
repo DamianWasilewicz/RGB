@@ -1,24 +1,11 @@
-RGB -- Shin Bamba, Kenny Li, Joyce Liao and Soojin Choi
-SoftDev1 pd8
-p1 - ArRESTed Development
-Devlog
+RGB
+Shin Bamba
+Kenny Li
+Joyce Liao
+Soojin Choi
+---------------------
+Arrested Development
 
-USAGE:
-* Replace all fields, angle brackets included, with specified info.
-  eg, pd <pd#> --> pd 3
-* Delete these instructions once all teammates understand usage.
-  (from tilde bar above to tilde bar below)
-* rename this file devlog.txt
-
-devlog--
-Use keyboard shortcut to jump to end,
- replicate entry template, (Ctrl-Shift up x5, Ctrl-X, Ctrl-V x2)
- modify appropriately.
-Each entry should begin with the following format:
- firstL -- TIMESTAMP\n
-e.g.: 
-clydeS -- 2999-12-31 23:59
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  ______   ______   __   __   __       ______   _______     
 /_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\    
 \:::_ \ \\::::_\/_\:\ \\ \ \\:\ \    \:::_ \ \\::::__\/__  
@@ -29,7 +16,7 @@ clydeS -- 2999-12-31 23:59
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-==============================================================
+
 choiS,bambaS,liK,liaoJ-- 2018-11-19 13:58
 ------------------------------------
 Decided on project idea. About food. We can either look up resturants based on location or the type of cuisine.
@@ -40,16 +27,18 @@ using:
 -Zomato
 -Food2Fork
 ==============================================================
+
 liaoJ -- 2018-11-22 15:30
 --------------------------------------------------------------
 Added bootstrap to design.pdf
 ==============================================================
+
 bambaS -- 2018-11-26 13:40
 --------------------------------------------------------------
 Seperated idUser table into four seperate tables to each hold favorite restaurant/recipe and recently view restaurant/recipe.
 ==============================================================
-fristL -- TIMESTAMP
---------------------------------------------------------------
-<Thing fristL did.>
-==============================================================
 
+liK,liaoJ -- 2018-11-26 13:51
+--------------------------------------------------------------
+Updated readme to include roster and summary
+==============================================================
