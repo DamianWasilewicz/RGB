@@ -1,0 +1,18 @@
+{% extends "shell.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+    Hi, logged in as <b>{{user}}</b>
+    <form action="/logout" method="POST"><!--Provides option to log out-->
+        <input type="submit" value="Logout">
+    </form>
+
+    <br><!--If input criteria aren't fullfilled, flashes error messages -->
+    {% set msgs = get_flashed_messages() %}
+    {% for each in msgs %}
+      <b>{{each}}</b>
+
+    {% endfor %}
+
+{% endblock %}

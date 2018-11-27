@@ -1,0 +1,30 @@
+{% extends "shell.html" %}
+
+{% block title %} Register {% endblock %}
+
+{% block content %}
+    <h3> It all begins here... </h3>
+
+    {% set msgs = get_flashed_messages() %}<!--If input criteria aren't fullfilled upon submitting, flash errors -->
+    {% for each in msgs %}
+      {{each}}
+    {% endfor %}
+
+    <form action="/adduser"><!--Post hides info from url. Makes sure user doesn't already exist & password matches confirm -->
+
+        Username:  <input type="text" name="user">
+        <br>
+        <br>
+        Password:  <input type="password" name="password">
+        <br>
+        <br>
+        Confirm Password:  <input type="password" name="confirm_password">
+        <br>
+        <br>
+        <a href='/'>cancel</a>
+        <input type="submit" value="Register">
+
+    </form>
+
+
+{% endblock %}
