@@ -23,6 +23,8 @@ def createTable():
     db.commit() #save changes
     db.close()  #close database
 
+# createTable()
+
 def add_user(username, password):
     ''' insert credentials for newly registered user into database '''
     db = sqlite3.connect(DB_FILE)
