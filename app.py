@@ -1,7 +1,6 @@
 #Kenny Li
 #SoftDev1 Pd8
 import os
-from urllib import request
 
 from flask import Flask, request, render_template, \
 flash, session, url_for, redirect
