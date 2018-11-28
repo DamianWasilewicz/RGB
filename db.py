@@ -14,10 +14,10 @@ def createTable():
     command = "CREATE TABLE favRec (username TEXT, recipe TEXT)"
     c.execute(command)
 
-    command = "CREATE TABLE recRest (username TEXT, restaurant TEXT)"
+    command = "CREATE TABLE RVRest (username TEXT, restaurant TEXT)"
     c.execute(command)
 
-    command = "CREATE TABLE recRec (username TEXT, recipe TEXT)"
+    command = "CREATE TABLE RVRec (username TEXT, recipe TEXT)"
     c.execute(command)
 
     db.commit() #save changes
@@ -57,3 +57,60 @@ def check_user(username):
             return True
     db.close()
     return False
+
+def add_fav(user, name_fav, type_fav):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    if (type_fav == "fav_rest"): #fav_rest
+        c.execute("INSERT INTO favRest VALUES(?, ?)", (user, name_fav))
+    else:
+        c.execute("INSERT INTO favRec VALUES(?, ?)", (user, name_fav))
+    db.close()
+
+def add_RV(user, name_RV, type_RV): #limit rv's to 10 
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    if (type_RV == "RV_rest"): #fav_rest
+        c.execute("INSERT INTO RVRest VALUES(?, ?)", (user, name_RV))
+    else:
+        c.execute("INSERT INTO RVRec VALUES(?, ?)", (user, name_RV))
+    db.close()
+
+    
+#return a list for user
+
+def get_fav(user, type_fav):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    fav_data = []
+    if (type_fav == "fav_rest"):
+        temp = c.execute("SELECT restaurant from favRest where username =" + user).fetchall()
+        for entry in temp:
+            fav_data.append(entry[0])
+    else:
+        temp = c.execute("SELECT recipe from favRec where username =" + user).fetchall()
+        for entry in temp:
+            fav_data.append(entry[0])
+    return fav_data
+
+def get_RV(user, type_RV):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    RV_data = []
+    if (type_RV == "RV_rest"):
+        temp = c.execute("SELECT restaurant from RVRest where username =" + user).fetchall()
+        for entry in temp:
+            RV_data.append(entry[0])
+    else:
+        temp = c.execute("SELECT recipe from RVRec where username =" + user).fetchall()
+        for entry in temp:
+            RV_data.append(entry[0])
+    return RV_data
+
+
+def check_exist(user, name_data, type_data):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+
+    
+    
