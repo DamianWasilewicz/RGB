@@ -68,6 +68,14 @@ def logout():
     session.pop("logged_in")
     return redirect(url_for("login"))
 
+@app.route("/restGo")
+def restGo():
+	return render_template("restaurant.html")
+
+@app.route("/recGo")
+def recGo():
+	return render_template("recipe.html")
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
