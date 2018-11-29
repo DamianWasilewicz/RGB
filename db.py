@@ -84,11 +84,11 @@ def get_fav(user, type_fav):
     c = db.cursor()
     fav_data = []
     if (type_fav == "fav_rest"):
-        temp = c.execute("SELECT restaurant from favRest where username =" + user).fetchall()
+        temp = c.execute("SELECT restaurant FROM favRest WHERE username = '"+user+"'").fetchall()
         for entry in temp:
             fav_data.append(entry[0])
     else:
-        temp = c.execute("SELECT recipe from favRec where username =" + user).fetchall()
+        temp = c.execute("SELECT recipe FROM favRec WHERE username = '"+ user  +"' ").fetchall()
         for entry in temp:
             fav_data.append(entry[0])
     return fav_data
@@ -112,5 +112,28 @@ def check_exist(user, name_data, type_data):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
+    if (type_data == "fav_rest"):
+        table_name = "favRest"
+        info_data = "restaurant"
+    if (type_data == "fav_rec"):
+        table_name = "favRec"
+        info_data = "recipe"
+    if (type_data == "RV_rest"):
+        table_name = "RVRest"
+        info_data = "restaurant"
+    else: #RV_rec
+        table_name = "RVRec"
+        info_data = "recipe"
     
-    
+    ret_val = c.execute("SELECT (?) from (?) where username = '" + user+ "'", (info_data, table_name))    
+    for each in ret_val:
+        if (each[0] == name_data):
+            return True
+    return False
+
+add_fav("b", "fav1", "fav_rest")
+add_fav("a", "fav5", "fav_rest")
+add_fav("a", "fav12", "fav_rest")
+add_fav("a", "fav1", "fav_rest")
+print(get_fav("a", "fav_rest"))
+print(check_exist("a", "fav1", "fav_rest"))
