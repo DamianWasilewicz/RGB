@@ -1,0 +1,12 @@
+{% extends "shell.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+    Hi, logged in as <b>{{user}}</b>
+    <form action="/logout"><!--Provides option to log out-->
+        <input type="submit" value="Logout">
+    </form>
+
+    
+{% endblock %}
