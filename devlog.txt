@@ -24,9 +24,15 @@ Or you can do your own cooking and we shall give you recipes to make food you wa
 using: USDA, Zomato, Food2Fork, Yelp
 ==============================================================
 
+bambaS,choiS,liK,liaoJ -- 2018-11-20 23:50
+--------------------------------------------------------------
+added finished design doc v0
+==============================================================
+
 liaoJ -- 2018-11-22 15:30
 --------------------------------------------------------------
-Added bootstrap to design.pdf
+design doc v1:
+In response to peer review, added Boostrap into component map
 ==============================================================
 
 bambaS, ChoiS -- 2018-11-26 13:40
@@ -46,7 +52,7 @@ Fixed Site Map
 
 liK,liaoJ -- 2018-11-26 14:09
 --------------------------------------------------------------
-Added flask starter kit
+Added flask starter kit, implemented database, refactored login, register, authenticate from previous work
 ==============================================================
 
 bambaS -- 2018-11-27 14:02
@@ -61,10 +67,16 @@ Added login, register, authenticate, logout, database and corresponding html fil
 
 liK,bambaS -- 2018-11-28 13:26
 --------------------------------------------------------------
-Added info, recipe.html and restaurant.html
+Added info.py (interact with Zomato), recipe.html and restaurant.html
 ==============================================================
 
 choiS,liaoJ -- 2018-11-28 13:30
 --------------------------------------------------------------
 Added db functions: adding/getting favorites and recentlyViewed
 ==============================================================
+
+choiS,liaoJ -- 2018-11-29 13:42
+--------------------------------------------------------------
+updated devlog in response to issue#1
+==============================================================
+
