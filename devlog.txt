@@ -85,7 +85,7 @@ liK -- 2018-11-29 14:07
 in info.py added method to retrieve cities from zomato api
 ==============================================================
 
-bambasS -- 2018-11-29 14:08
+bambaS -- 2018-11-29 14:08
 --------------------------------------------------------------
 tried to fix jinja. Broke it. Restaurants and Recipe page do not extend properly
 ==============================================================
@@ -95,3 +95,9 @@ choiS,liaoJ -- 2018-11-29 14:10
 wrote db function: check_exist
 started testing methods add_fav and add_RV, they do not seem to work (no data is added to table)
 ==============================================================
+
+bambaS -- 2018-11-29 20:41
+--------------------------------------------------------------
+added home button to some pages. Fixed jinja problem. Dummy favorite and recently viewed list added.
+==============================================================
+

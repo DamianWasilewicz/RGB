@@ -125,10 +125,10 @@ def check_exist(user, name_data, type_data):
         table_name = "RVRec"
         info_data = "recipe"
     
-    ret_val = c.execute("SELECT (?) from (?) where username = '" + user+ "'", (info_data, table_name))    
-    for each in ret_val:
-        if (each[0] == name_data):
-            return True
+    #ret_val = c.execute("SELECT (?) from (?) where username = '" + user+ "'", (info_data, table_name))    
+    #for each in ret_val:
+    #    if (each[0] == name_data):
+    #        return True
     return False
 
 add_fav("b", "fav1", "fav_rest")

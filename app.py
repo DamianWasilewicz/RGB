@@ -1,5 +1,6 @@
-#Kenny Li
-#SoftDev1 Pd8
+#RGB
+#Bamba Shin, Soojin Choi, Kenny Li, Joyce Liao
+#Project 1
 import os
 
 from flask import Flask, request, render_template, \
@@ -71,15 +72,21 @@ def logout():
 #----------- Restaurants Routes-----
 @app.route("/restGo")
 def restGo():
-	return render_template("restaurant.html")
-
+	args = {}
+	args['user'] = session['logged_in']
+	args['fav_rest'] = ['this','is','a','list']
+	args['rv_rest'] = ['this','is','a','list']
+	return render_template("restaurant.html",**args)
 
 
 #----------- Recipe Routs -----------
 @app.route("/recGo")
 def recGo():
-	return render_template("recipe.html")
-
+	args = {}
+	args['user'] = session['logged_in']
+	args['fav_rec'] = ['this','is','a','list']
+	args['rv_rec'] = ['this','is','a','list']
+	return render_template("recipe.html", **args)
 if __name__ == "__main__":
     app.debug = True
     app.run()
