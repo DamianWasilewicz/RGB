@@ -65,6 +65,7 @@ def add_fav(user, name_fav, type_fav):
         c.execute("INSERT INTO favRest VALUES(?, ?)", (user, name_fav))
     else:
         c.execute("INSERT INTO favRec VALUES(?, ?)", (user, name_fav))
+    db.commit()
     db.close()
 
 def add_RV(user, name_RV, type_RV): #limit rv's to 10 
@@ -74,6 +75,7 @@ def add_RV(user, name_RV, type_RV): #limit rv's to 10
         c.execute("INSERT INTO RVRest VALUES(?, ?)", (user, name_RV))
     else:
         c.execute("INSERT INTO RVRec VALUES(?, ?)", (user, name_RV))
+    db.commit()
     db.close()
 
     
@@ -115,25 +117,28 @@ def check_exist(user, name_data, type_data):
     if (type_data == "fav_rest"):
         table_name = "favRest"
         info_data = "restaurant"
-    if (type_data == "fav_rec"):
+    elif (type_data == "fav_rec"):
         table_name = "favRec"
         info_data = "recipe"
-    if (type_data == "RV_rest"):
+    elif (type_data == "RV_rest"):
         table_name = "RVRest"
         info_data = "restaurant"
     else: #RV_rec
         table_name = "RVRec"
         info_data = "recipe"
-    
-    #ret_val = c.execute("SELECT (?) from (?) where username = '" + user+ "'", (info_data, table_name))    
-    #for each in ret_val:
-    #    if (each[0] == name_data):
-    #        return True
+
+    #ret_val = c.execute("SELECT restaurant from favRest where username = 'a'",{"data":info_data})
+    ret_val = c.execute("SELECT {0} from favRest where username = 'a'".format(info_data))
+    for each in ret_val:
+        print(each)
+        if (each[0] == name_data):
+            return True
     return False
 
-add_fav("b", "fav1", "fav_rest")
-add_fav("a", "fav5", "fav_rest")
-add_fav("a", "fav12", "fav_rest")
-add_fav("a", "fav1", "fav_rest")
+
+#add_fav("b", "fav1", "fav_rest")
+#add_fav("a", "fav5", "fav_rest")
+#add_fav("a", "fav12", "fav_rest")
+#add_fav("a", "fav1", "fav_rest")
 print(get_fav("a", "fav_rest"))
 print(check_exist("a", "fav1", "fav_rest"))
