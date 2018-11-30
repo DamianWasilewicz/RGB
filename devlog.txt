@@ -105,3 +105,8 @@ liK -- 2018-11-30 14:06
 --------------------------------------------------------------
 in info.py added method to retrieve establishments given a city from zomato api
 ==============================================================
+
+choiS,liaoJ -- 2018-11-30 14:08
+--------------------------------------------------------------
+fixed db functions that add entries to the database and get customized list according to given username
+==============================================================
