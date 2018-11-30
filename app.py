@@ -4,9 +4,11 @@
 import os
 
 from flask import Flask, request, render_template, \
-flash, session, url_for, redirect
+     flash, session, url_for, redirect
 
 import db
+
+
 app = Flask(__name__)
 
 app.secret_key = os.urandom(32)
@@ -79,7 +81,7 @@ def restGo():
 	return render_template("restaurant.html",**args)
 
 
-#----------- Recipe Routs -----------
+#----------- Recipe Routes -----------
 @app.route("/recGo")
 def recGo():
 	args = {}
