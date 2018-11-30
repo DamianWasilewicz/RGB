@@ -89,3 +89,9 @@ bambasS -- 2018-11-29 14:08
 --------------------------------------------------------------
 tried to fix jinja. Broke it. Restaurants and Recipe page do not extend properly
 ==============================================================
+
+choiS,liaoJ -- 2018-11-29 14:10
+--------------------------------------------------------------
+wrote db function: check_exist
+started testing methods add_fav and add_RV, they do not seem to work (no data is added to table)
+==============================================================
