@@ -59,6 +59,7 @@ def check_user(username):
     return False
 
 def add_fav(user, name_fav, type_fav):
+    ''' add a new favorite associated with the user to the corresponding table '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     if (type_fav == "fav_rest"): #fav_rest
@@ -68,7 +69,8 @@ def add_fav(user, name_fav, type_fav):
     db.commit()
     db.close()
 
-def add_RV(user, name_RV, type_RV): #limit rv's to 10 
+def add_RV(user, name_RV, type_RV): #limit rv's to 10
+    ''' update the user's recently viewed list '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     if (type_RV == "RV_rest"): #fav_rest
@@ -78,10 +80,8 @@ def add_RV(user, name_RV, type_RV): #limit rv's to 10
     db.commit()
     db.close()
 
-    
-#return a list for user
-
 def get_fav(user, type_fav):
+    ''' retrieve a list of the user's favorites for given type '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     fav_data = []
@@ -96,21 +96,23 @@ def get_fav(user, type_fav):
     return fav_data
 
 def get_RV(user, type_RV):
+    ''' retrieve the user's recently viewed list '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     RV_data = []
     if (type_RV == "RV_rest"):
-        temp = c.execute("SELECT restaurant from RVRest where username =" + user).fetchall()
+        temp = c.execute("SELECT restaurant from RVRest WHERE username =" + user).fetchall()
         for entry in temp:
             RV_data.append(entry[0])
     else:
-        temp = c.execute("SELECT recipe from RVRec where username =" + user).fetchall()
+        temp = c.execute("SELECT recipe from RVRec WHERE username =" + user).fetchall()
         for entry in temp:
             RV_data.append(entry[0])
     return RV_data
 
 
 def check_exist(user, name_data, type_data):
+    ''' check if an entry is already in the user's favorites or recentlu viewed '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
@@ -127,18 +129,19 @@ def check_exist(user, name_data, type_data):
         table_name = "RVRec"
         info_data = "recipe"
 
-    #ret_val = c.execute("SELECT restaurant from favRest where username = 'a'",{"data":info_data})
-    ret_val = c.execute("SELECT {0} from favRest where username = 'a'".format(info_data))
+    #print("table: %s, info: %s" % (table_name, info_data))
+    ret_val = c.execute("SELECT {} from {} WHERE username = '{}'".format(info_data, table_name, user))
     for each in ret_val:
-        print(each)
+        #print(each)
         if (each[0] == name_data):
             return True
     return False
 
-
-#add_fav("b", "fav1", "fav_rest")
-#add_fav("a", "fav5", "fav_rest")
-#add_fav("a", "fav12", "fav_rest")
-#add_fav("a", "fav1", "fav_rest")
-print(get_fav("a", "fav_rest"))
-print(check_exist("a", "fav1", "fav_rest"))
+# =========== db function tests ===========
+# add_fav("b", "fav1", "fav_rest")
+# add_fav("a", "fav5", "fav_rest")
+# add_fav("a", "fav12", "fav_rest")
+# add_fav("a", "fav1", "fav_rest")
+# print(get_fav("a", "fav_rest"))
+# print(get_fav("b", "fav_rest"))
+# print(check_exist("a", "fav1", "fav_rest"))
