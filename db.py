@@ -86,11 +86,11 @@ def get_fav(user, type_fav):
     c = db.cursor()
     fav_data = []
     if (type_fav == "fav_rest"):
-        temp = c.execute("SELECT restaurant FROM favRest WHERE username = '"+user+"'").fetchall()
+        temp = c.execute("SELECT restaurant FROM favRest WHERE username = '{}'".format(user)).fetchall()
         for entry in temp:
             fav_data.append(entry[0])
     else:
-        temp = c.execute("SELECT recipe FROM favRec WHERE username = '"+ user  +"' ").fetchall()
+        temp = c.execute("SELECT recipe FROM favRec WHERE username = '{}'".format(user)).fetchall()
         for entry in temp:
             fav_data.append(entry[0])
     return fav_data
@@ -101,18 +101,18 @@ def get_RV(user, type_RV):
     c = db.cursor()
     RV_data = []
     if (type_RV == "RV_rest"):
-        temp = c.execute("SELECT restaurant from RVRest WHERE username =" + user).fetchall()
+        temp = c.execute("SELECT restaurant from RVRest WHERE username = '{}'".format(user)).fetchall()
         for entry in temp:
             RV_data.append(entry[0])
     else:
-        temp = c.execute("SELECT recipe from RVRec WHERE username =" + user).fetchall()
+        temp = c.execute("SELECT recipe from RVRec WHERE username = '{}'".format(user)).fetchall()
         for entry in temp:
             RV_data.append(entry[0])
     return RV_data
 
 
 def check_exist(user, name_data, type_data):
-    ''' check if an entry is already in the user's favorites or recentlu viewed '''
+    ''' check if an entry is already in the user's favorites or recently viewed '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
@@ -138,10 +138,26 @@ def check_exist(user, name_data, type_data):
     return False
 
 # =========== db function tests ===========
+# createTable()
 # add_fav("b", "fav1", "fav_rest")
 # add_fav("a", "fav5", "fav_rest")
 # add_fav("a", "fav12", "fav_rest")
 # add_fav("a", "fav1", "fav_rest")
+# add_RV("a", "RV0", "RV_rest")
+# add_RV("a", "RV2", "RV_rest")
+# add_RV("a", "RV58", "RV_rec")
+# add_RV("b", "RV2", "RV_rest")
+# print("a fav rest:")
 # print(get_fav("a", "fav_rest"))
+# print("a RV rest:")
+# print(get_RV("a", "RV_rest"))
+# print("a RV rec:")
+# print(get_RV("a", "RV_rec"))
+# print("b RV rest:")
+# print(get_RV("b", "RV_rest"))
+# print("b RV rec:")
+# print(get_RV("b", "RV_rec"))
+# print("b fav rest:")
 # print(get_fav("b", "fav_rest"))
 # print(check_exist("a", "fav1", "fav_rest"))
+# print(check_exist("a", "fav3", "fav_rest"))

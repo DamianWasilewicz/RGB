@@ -114,5 +114,5 @@ fixed db functions that add entries to the database and get customized list acco
 liaoJ -- 2018-12-01 13:12
 --------------------------------------------------------------
 added docstring for all db functions that lacked one
-all db functions up to check_exist() are working properly now
+debugged check_exist(), all db functions up to check_exist() are working properly now
 ==============================================================
