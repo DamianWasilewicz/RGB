@@ -9,8 +9,8 @@ usdaKey = "LSwsFBYAj6DAx8ChR6hy5420iIX8IyQCPoDMGt3G"
 
 
 '''
-the dictionary depends on the type given: cities or establishments
-returns the dictionary based on the type specified {name:id}
+the dictionary depends on the type given: cities, establishments or cuisines
+returns the dictionary based on the type specified {name of type:zomato specific id}
 '''
 def getTypeDict(query, type):
     typeDict = dict() #creates a dictionary of type
@@ -18,6 +18,8 @@ def getTypeDict(query, type):
         qString = "/cities?q=" + query
     elif (type == "establishments"):
         qString = "/establishments?city_id=" + query
+    else:
+        qString = "/cuisines?city_id=" + query
     zomatoUrl = request.Request("https://developers.zomato.com/api/v2.1" + qString)
     zomatoUrl.add_header("user-key", zomatoKey)
     zomatoUrl.add_header('User-Agent','Mozilla/5.0')
@@ -28,15 +30,24 @@ def getTypeDict(query, type):
     elif (type == "establishments"):
         for establishmentList in data["establishments"]:
             typeDict[establishmentList["establishment"]["name"]] = establishmentList["establishment"]["id"]
+    elif (type == "cuisines"):
+        for cuisineList in data["cuisines"]:
+            typeDict[cuisineList["cuisine"]["cuisine_name"]] = cuisineList["cuisine"]["cuisine_id"]
     return typeDict
 
-print(getTypeDict("new_york","cities"))
-print(getTypeDict("1","establishments"))
+def searchRestuarant(city, establishment, cuisine):
+    qString = "/search?entity_id=" + city + "&entity_type=city"
+    if establishment is not None:
+        qString += "&establishment_type=" + establishment
+    if cuisine is not None:
+        qString += "&cuisines=" + cuisine
+    zomatoUrl = request.Request("https://developers.zomato.com/api/v2.1" + qString)
+    zomatoUrl.add_header("user-key", zomatoKey)
+    zomatoUrl.add_header('User-Agent','Mozilla/5.0')
+    data = json.loads(request.urlopen(zomatoUrl).read())
+    return data
 
-# zomatoUrl = request.Request("https://developers.zomato.com/api/v2.1")
-# cityString = "/cities?q="
-# queryString = "/establishment/city_id=1"
-# zomatoUrl.add_header("user-key", zomatoKey)
-# zomatoUrl.add_header('User-Agent','Mozilla/5.0')
-# data = json.loads(request.urlopen(zomatoUrl).read())
-# print(data)
+# print(getTypeDict("new","cities"))
+# print(getTypeDict("1","establishments"))
+# print(getTypeDict("1","cuisines"))
+print(searchRestuarant("1","1","1"))
