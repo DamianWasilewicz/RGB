@@ -116,3 +116,8 @@ liaoJ -- 2018-12-01 13:12
 added docstring for all db functions that lacked one
 debugged check_exist(), all db functions up to check_exist() are working properly now
 ==============================================================
+bambaS -- 2018-12-02 20:54
+--------------------------------------------------------------
+created info2.py to able to test reciple api functions.
+getRecs wrking, however does not work when spaces are added to list
+==============================================================

@@ -10,30 +10,44 @@ usdaKey = "LSwsFBYAj6DAx8ChR6hy5420iIX8IyQCPoDMGt3G"
 
 #returns a dictionary of city names with their ids
 def getCites(city):
-    cityDict = dict()
-    cityString = "/cities?q=" + city
-    zomatoUrl = request.Request("https://developers.zomato.com/api/v2.1" + cityString)
-    zomatoUrl.add_header("user-key", zomatoKey)
-    zomatoUrl.add_header('User-Agent','Mozilla/5.0')
-    data = json.loads(request.urlopen(zomatoUrl).read())
-    for cityList in data["location_suggestions"]:
-        cityDict[cityList["name"]] = cityList["id"]
-    return cityDict
+	cityDict = dict()
+	cityString = "/cities?q=" + city
+	zomatoUrl = request.Request("https://developers.zomato.com/api/v2.1" + cityString)
+	zomatoUrl.add_header("user-key", zomatoKey)
+	zomatoUrl.add_header('User-Agent','Mozilla/5.0')
+	data = json.loads(request.urlopen(zomatoUrl).read())
+	for cityList in data["location_suggestions"]:
+		cityDict[cityList["name"]] = cityList["id"]
+	return cityDict
 
-#returns a list of recipe names based on a list of ingredients
+'''
+given a list of ingredients
+returns a dictionary of at most 30 top available recipes and id
+'''
 def searchRecs(ingredients):
-   f2fUrl =  request.Request("https://www.food2fork.com/api/search?key=" + f2fKey, headers={'User-Agent': 'Mozilla/5.0'})
-   query = ""
-   for food in ingredients:
-       query += food
-   f2fUrl.add_header("q=" , query)
-   data = json.loads(request.urlopen(f2fUrl).read())
-   return data
+	query = ""
+	for food in ingredients:
+		query += food + ","
+	print(query)
+	f2fUrl =  request.Request("https://www.food2fork.com/api/search?key=" + f2fKey + "&q=" + query, headers={'User-Agent': 'Mozilla/5.0'})
+	data = json.loads(request.urlopen(f2fUrl).read())
+	listOfRecs = data['recipes']
+	recs = {}
+	for rec in listOfRecs:
+		recs[rec['title']] = rec['recipe_id']
+	return recs
 
-
-
-li = ["chicken breast"]
+def getRecs(rec_id):
+	f2fUrl =  request.Request("https://www.food2fork.com/api/get?key=" + f2fKey + "&rId=" + rec_id, headers={'User-Agent': 'Mozilla/5.0'})
+	data = json.loads(request.urlopen(f2fUrl).read())
+	return data["recipe"]
+	
+	
+	
+li = ["grape%20juice"]
 print(searchRecs(li))
+print("-------------------------------")
+print(getRecs("35382"))
 # print(getCites("new"))
 
 
