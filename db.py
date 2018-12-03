@@ -73,7 +73,10 @@ def add_RV(user, name_RV, type_RV): #limit rv's to 10
     ''' update the user's recently viewed list '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    if (type_RV == "RV_rest"): #fav_rest
+    if (type_RV == "RV_rest"):
+        row_count = c.execute("SELECT COUNT(*) FROM RVRest WHERE username = '{}'".format(user)).fetchone()[0]
+        print(row_count)
+        # if (row_count > 10):
         c.execute("INSERT INTO RVRest VALUES(?, ?)", (user, name_RV))
     else:
         c.execute("INSERT INTO RVRec VALUES(?, ?)", (user, name_RV))
@@ -137,6 +140,29 @@ def check_exist(user, name_data, type_data):
             return True
     return False
 
+def remove_entry(user, type_data):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    if (type_data == "fav_rest"):
+        table_name = "favRest"
+        info_data = "restaurant"
+    elif (type_data == "fav_rec"):
+        table_name = "favRec"
+        info_data = "recipe"
+    elif (type_data == "RV_rest"):
+        table_name = "RVRest"
+        info_data = "restaurant"
+    else: #RV_rec
+        table_name = "RVRec"
+        info_data = "recipe"
+
+    top_entry = c.execute("SELECT {} FROM {} WHERE username = '{}'".format(info_data, table_name, user)).fetchone()[0]
+    print("deleting:")
+    print(top_entry)
+
+    db.close()
+
+
 # =========== db function tests ===========
 # createTable()
 # add_fav("b", "fav1", "fav_rest")
@@ -148,7 +174,7 @@ def check_exist(user, name_data, type_data):
 # add_RV("a", "RV58", "RV_rec")
 # add_RV("b", "RV2", "RV_rest")
 # print("a fav rest:")
-# print(get_fav("a", "fav_rest"))
+print(get_fav("a", "fav_rest"))
 # print("a RV rest:")
 # print(get_RV("a", "RV_rest"))
 # print("a RV rec:")
@@ -161,3 +187,4 @@ def check_exist(user, name_data, type_data):
 # print(get_fav("b", "fav_rest"))
 # print(check_exist("a", "fav1", "fav_rest"))
 # print(check_exist("a", "fav3", "fav_rest"))
+remove_entry("a", "fav_rest")
