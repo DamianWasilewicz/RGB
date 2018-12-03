@@ -121,3 +121,11 @@ bambaS -- 2018-12-02 20:54
 created info2.py to able to test reciple api functions.
 searchRecs wrking, however does not work when spaces are added to list
 ==============================================================
+liaoJ -- 2018-12-03 13:40
+--------------------------------------------------------------
+updated README.txt to reflect current project
+==============================================================
+bambaS -- 2018-12-03 14:00
+--------------------------------------------------------------
+fixed getRecs, to where returns list of only ingreidents
+==============================================================
