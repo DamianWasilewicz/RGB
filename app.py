@@ -89,6 +89,11 @@ def recGo():
 	args['fav_rec'] = ['this','is','a','list']
 	args['rv_rec'] = ['this','is','a','list']
 	return render_template("recipe.html", **args)
+
+
+
+
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
