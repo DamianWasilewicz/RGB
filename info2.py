@@ -43,9 +43,10 @@ def searchRecs(ingredients):
 given a recipe id from the F2F database, returns a list of ingredients that are needed in order to create the dish
 '''
 def getRecs(rec_id):
-	f2fUrl =  request.Request("https://www.food2fork.com/api/get?key=" + f2fKey + "&rId=" + rec_id, headers={'User-Agent': 'Mozilla/5.0'})
-	data = json.loads(request.urlopen(f2fUrl).read())
-	return data["recipe"]["ingredients"]
+    f2fUrl =  request.Request("https://www.food2fork.com/api/get?key=" + f2fKey + "&rId=" + rec_id, headers={'User-Agent': 'Mozilla/5.0'})
+    data = json.loads(request.urlopen(f2fUrl).read())
+    thing = [data['recipe']['ingredients'],data['recipe']['source_url']]
+    return thing
 	
 	
 	
@@ -53,6 +54,8 @@ li = ["grape%20juice"]
 print(searchRecs(li))
 print("------------------------------------------------------")
 print(getRecs("47050"))
+
+
 # print(getCites("new"))
 
 
