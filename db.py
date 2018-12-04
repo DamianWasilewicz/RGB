@@ -14,10 +14,10 @@ def createTable():
     command = "CREATE TABLE favRec (username TEXT, recipe TEXT)"
     c.execute(command)
 
-    command = "CREATE TABLE RVRest (username TEXT, restaurant TEXT)"
+    command = "CREATE TABLE RVRest (username TEXT, restaurant TEXT, id INTEGER)"
     c.execute(command)
 
-    command = "CREATE TABLE RVRec (username TEXT, recipe TEXT)"
+    command = "CREATE TABLE RVRec (username TEXT, recipe TEXT, id INTEGER)"
     c.execute(command)
 
     db.commit() #save changes
@@ -69,17 +69,23 @@ def add_fav(user, name_fav, type_fav):
     db.commit()
     db.close()
 
-def add_RV(user, name_RV, type_RV): #limit rv's to 10
+def add_RV(user, name_RV, table_name): #limit rv's to 10
     ''' update the user's recently viewed list '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    if (type_RV == "RV_rest"):
+    #gets current max id
+    if (not check_exist(user, name_RV, table_name)):
         row_count = c.execute("SELECT COUNT(*) FROM RVRest WHERE username = '{}'".format(user)).fetchone()[0]
         print(row_count)
-        # if (row_count > 10):
-        c.execute("INSERT INTO RVRest VALUES(?, ?)", (user, name_RV))
-    else:
-        c.execute("INSERT INTO RVRec VALUES(?, ?)", (user, name_RV))
+        if (row_count > 10):
+            remove_entry(user, table_name)
+        max_id = c.execute("SELECT MAX(id) FROM {} WHERE username = '{}'".format(table_name, user)).fetchone()[0]
+        print(max_id)
+        if (max_id == None):
+            next_id = 0;
+        else:
+            next_id = max_id + 1
+        c.execute("INSERT INTO {} VALUES(?, ?, ?)".format(table_name), (user, name_RV, next_id))
     db.commit()
     db.close()
 
@@ -114,22 +120,14 @@ def get_RV(user, type_RV):
     return RV_data
 
 
-def check_exist(user, name_data, type_data):
+def check_exist(user, name_data, table_name):
     ''' check if an entry is already in the user's favorites or recently viewed '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    if (type_data == "fav_rest"):
-        table_name = "favRest"
+    if (table_name == "favRest" or table_name == "RVRest"):
         info_data = "restaurant"
-    elif (type_data == "fav_rec"):
-        table_name = "favRec"
-        info_data = "recipe"
-    elif (type_data == "RV_rest"):
-        table_name = "RVRest"
-        info_data = "restaurant"
-    else: #RV_rec
-        table_name = "RVRec"
+    else:
         info_data = "recipe"
 
     #print("table: %s, info: %s" % (table_name, info_data))
@@ -140,23 +138,16 @@ def check_exist(user, name_data, type_data):
             return True
     return False
 
-def remove_entry(user, type_data):
+def remove_entry(user, table_name):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    if (type_data == "fav_rest"):
-        table_name = "favRest"
+
+    if (table_name == "favRest" or table_name == "RVRest"):
         info_data = "restaurant"
-    elif (type_data == "fav_rec"):
-        table_name = "favRec"
-        info_data = "recipe"
-    elif (type_data == "RV_rest"):
-        table_name = "RVRest"
-        info_data = "restaurant"
-    else: #RV_rec
-        table_name = "RVRec"
+    else:
         info_data = "recipe"
 
-    top_entry = c.execute("SELECT {} FROM {} WHERE username = '{}'".format(info_data, table_name, user)).fetchone()[0]
+    top_entry = c.execute("SELECT {} FROM {} WHERE username = '{}' and id = MIN(id)".format(info_data, table_name, user)).fetchone()[0]
     print("deleting:")
     print(top_entry)
 
@@ -170,13 +161,13 @@ def remove_entry(user, type_data):
 # add_fav("a", "fav12", "fav_rest")
 # add_fav("a", "fav1", "fav_rest")
 # add_RV("a", "RV0", "RV_rest")
-# add_RV("a", "RV2", "RV_rest")
+add_RV("a", "RV2", "RVRest")
 # add_RV("a", "RV58", "RV_rec")
-# add_RV("b", "RV2", "RV_rest")
+add_RV("a", "RV3", "RVRest")
 # print("a fav rest:")
-print(get_fav("a", "fav_rest"))
+# print(get_fav("a", "fav_rest"))
 # print("a RV rest:")
-# print(get_RV("a", "RV_rest"))
+print(get_RV("a", "RV_rest"))
 # print("a RV rec:")
 # print(get_RV("a", "RV_rec"))
 # print("b RV rest:")
@@ -187,4 +178,4 @@ print(get_fav("a", "fav_rest"))
 # print(get_fav("b", "fav_rest"))
 # print(check_exist("a", "fav1", "fav_rest"))
 # print(check_exist("a", "fav3", "fav_rest"))
-remove_entry("a", "fav_rest")
+# remove_entry("a", "fav_rest")
