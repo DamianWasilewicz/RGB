@@ -116,16 +116,26 @@ liaoJ -- 2018-12-01 13:12
 added docstring for all db functions that lacked one
 debugged check_exist(), all db functions up to check_exist() are working properly now
 ==============================================================
+
 bambaS -- 2018-12-02 20:54
 --------------------------------------------------------------
-created info2.py to able to test reciple api functions.
-searchRecs wrking, however does not work when spaces are added to list
+created info2.py to able to test recipe api functions.
+searchRecs working, however does not work when spaces are added to list
 ==============================================================
+
 liaoJ -- 2018-12-03 13:40
 --------------------------------------------------------------
 updated README.txt to reflect current project
 ==============================================================
+
 bambaS -- 2018-12-03 14:00
 --------------------------------------------------------------
-fixed getRecs, to where returns list of only ingreidents
+fixed getRecs, to where returns list of only ingredients
+==============================================================
+
+liK -- 2018-12-04 14:09
+--------------------------------------------------------------
+finished getRestaurants method
+returns list of 10 results based on criteria
+moved api keys to json file
 ==============================================================
