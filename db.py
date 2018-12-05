@@ -80,7 +80,7 @@ def add_RV(user, name_RV, table_name): #limit rv's to 10
         max_id = c.execute("SELECT MAX(id) FROM {} WHERE username = '{}'".format(table_name, user)).fetchone()[0]
         print(max_id)
         if (max_id == None):
-            next_id = 0;
+            next_id = 0
         else:
             next_id = max_id + 1
         c.execute("INSERT INTO {} VALUES(?, ?, ?)".format(table_name), (user, name_RV, next_id))
