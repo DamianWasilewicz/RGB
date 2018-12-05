@@ -61,7 +61,6 @@ def searchRecs(ingredients):
 	query = ""
 	for food in ingredients:
 		query += food + ","
-	print(query)
 	f2fUrl =  request.Request("https://www.food2fork.com/api/search?key=" + api_dict["f2f"] + "&q=" + query, headers={'User-Agent': 'Mozilla/5.0'})
 	data = json.loads(request.urlopen(f2fUrl).read())
 	listOfRecs = data['recipes']
@@ -71,28 +70,20 @@ def searchRecs(ingredients):
 	return recs
 
 '''
-given an ingredient
-returns a dictionary of at most 20 top results when searched for that ingredient paired with ndbmo (USDA id)
-'''
-# def searching(ingredients):
-
-'''
 given a recipe id from the F2F database, returns a list of ingredients that are needed in order to create the dish
 '''
 def getRecs(rec_id):
     f2fUrl =  request.Request("https://www.food2fork.com/api/get?key=" + api_dict["f2f"] + "&rId=" + rec_id, headers={'User-Agent': 'Mozilla/5.0'})
     data = json.loads(request.urlopen(f2fUrl).read())
-#<<<<<<< HEAD
-    thing = [data['recipe']['ingredients'],data['recipe']['source_url']]
-    return thing	
-	
-	
+    return [data['recipe']['ingredients'],data['recipe']['source_url']]
+
+
 '''
 given an ingredient
 returns a dictionary of at most 20 top results when searched for that ingredient paired with ndbno (USDA id)
 '''
-def searchIng(ingredient):
-	usdaUrl = request.Request("https://api.nal.usda.gov/ndb/search/?format=json&sort=n&max=20&offset=0&ds=Standard%20Reference" + "&q=" + ingredient + "&api_key=" + api_dict["usda"], headers={'User-Agent': 'Mozilla/5.0'})
+def searchIngredient(ingredient):
+	usdaUrl = request.Request("https://api.nal.usda.gov/ndb/search/?format=json&sort=n&max=10&offset=0&ds=Standard%20Reference" + "&q=" + ingredient + "&api_key=" + api_dict["usda"], headers={'User-Agent': 'Mozilla/5.0'})
 	#usdaUrl.add_header("q", ingredient)
 	#usdaUrl.add_header("api_key", api_dict["usda"])
 	#usdaUrl.add_header('User-Agent','Mozilla/5.0')
@@ -104,40 +95,27 @@ def searchIng(ingredient):
 	return ingreds
 
 '''
-given a valid ndbno id, 
-returns a dictionary with nutrient name : nutrient value
-'''	
+given a valid ndbno id,
+returns a dictionary with nutrient {name : nutrient value}
+'''
 def getInfo(ndbno):
 	usdaUrl = request.Request("https://api.nal.usda.gov/ndb/V2/reports?type=b&format=json&" + "ndbno=" + ndbno + "&api_key=" + api_dict['usda'],  headers = {'User-Agent':'Mozilla/5'})
 	data = json.loads(request.urlopen(usdaUrl).read())
-	nutsInfo = data['foods'][0]['food']['nutrients']
-	nuts = {}
-	for nutrient in nutsInfo:
-		nuts[nutrient['name']] = nutrient['value'] + " " + nutrient['unit']
-	return nuts	
-	
-	
-#li = ["grape%20juice"]
-#print(searchRecs(li))
-#print("------------------------------------------------------")
-#print(getRecs("47050"))	
-# print(getTypeDict("new","cities"))
-# print(getTypeDict("1","establishments"))
-# print(getTypeDict("1","cuisines"))
-#print(searchRestuarant("1","1","1"))
-print(searchIng("butter"))
-print("------------------------------------------------------")
-print(getInfo("42148"))
-#=======
-#    return [data['recipe']['ingredients'],data['recipe']['source_url']]
-    	
+	nutrientInfo = data['foods'][0]['food']['nutrients']
+	nutrientDict = {}
+	for nutrient in nutrientInfo:
+		nutrientDict[nutrient['name']] = nutrient['value'] + " " + nutrient['unit']
+	return nutrientDict
 
-#print(getTypeDict("new","cities"))
-#print(getTypeDict("1","establishments"))
-#print(getTypeDict("1","cuisines"))
-#print(searchRestuarant("1","1","1"))
-#li = ["grape%20juice"]
-#print(searchRecs(li))
-#print("------------------------------------------------------")
-#print(getRecs("47050"))
-#>>>>>>> 9935e8bb4ea70a677be6d876b41eeadeb98c085b
+
+print(getTypeDict("new","cities"))
+print(getTypeDict("1","establishments"))
+print(getTypeDict("1","cuisines"))
+print(searchRestuarant("1","1","1"))
+print("------------------------------------------------------")
+print(searchIngredient("butter"))
+print(getInfo("42148"))
+print("------------------------------------------------------")
+print(searchRecs("butter"))
+print(getRecs("47050"))
+print("------------------------------------------------------")

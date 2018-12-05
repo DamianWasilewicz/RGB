@@ -156,3 +156,9 @@ bambaS -- 2018-12-05 00:57
 --------------------------------------------------------------
 added usda api functions into info.py. Can now search for ingredient nutritional info
 ==============================================================
+
+liK -- 2018-12-05 13:52
+--------------------------------------------------------------
+renamed variables in info.py
+deleted info2.py (already merged into info.py)
+==============================================================
