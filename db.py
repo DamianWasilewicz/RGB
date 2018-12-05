@@ -43,7 +43,7 @@ def auth_user(username, password):
         if(entry[0] == username and entry[1] == password):
             db.close()
             return True
-    db.close()
+        db.close()
     return False
 
 def check_user(username):
@@ -55,19 +55,17 @@ def check_user(username):
         if(entry[0] == username):
             db.close()
             return True
-    db.close()
+        db.close()
     return False
 
-def add_fav(user, name_fav, type_fav):
+def add_fav(user, name_fav, table_name):
     ''' add a new favorite associated with the user to the corresponding table '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    if (type_fav == "fav_rest"): #fav_rest
-        c.execute("INSERT INTO favRest VALUES(?, ?)", (user, name_fav))
-    else:
-        c.execute("INSERT INTO favRec VALUES(?, ?)", (user, name_fav))
-    db.commit()
-    db.close()
+    if (not check_exist(user, name_fav, table_name)):
+        c.execute("INSERT INTO {} VALUES(?, ?)".format(table_name), (user, name_fav))
+        db.commit()
+        db.close()
 
 def add_RV(user, name_RV, table_name): #limit rv's to 10
     ''' update the user's recently viewed list '''
@@ -89,34 +87,35 @@ def add_RV(user, name_RV, table_name): #limit rv's to 10
     db.commit()
     db.close()
 
-def get_fav(user, type_fav):
+def get_fav(user, table_name):
     ''' retrieve a list of the user's favorites for given type '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     fav_data = []
-    if (type_fav == "fav_rest"):
-        temp = c.execute("SELECT restaurant FROM favRest WHERE username = '{}'".format(user)).fetchall()
-        for entry in temp:
-            fav_data.append(entry[0])
+    if (table_name == "favRest"):
+        info_data = "restaurant"
     else:
-        temp = c.execute("SELECT recipe FROM favRec WHERE username = '{}'".format(user)).fetchall()
-        for entry in temp:
-            fav_data.append(entry[0])
+        info_data = "recipe"
+
+    temp = c.execute("SELECT {} FROM {} WHERE username = '{}'".format(info_data, table_name, user)).fetchall()
+    for entry in temp:
+        fav_data.append(entry[0])
     return fav_data
 
-def get_RV(user, type_RV):
+#add sort to order the ret_val
+def get_RV(user, table_name):
     ''' retrieve the user's recently viewed list '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     RV_data = []
-    if (type_RV == "RV_rest"):
-        temp = c.execute("SELECT restaurant from RVRest WHERE username = '{}'".format(user)).fetchall()
-        for entry in temp:
-            RV_data.append(entry[0])
+    if (table_name == "favRest" or table_name == "RVRest"):
+        info_data = "restaurant"
     else:
-        temp = c.execute("SELECT recipe from RVRec WHERE username = '{}'".format(user)).fetchall()
-        for entry in temp:
-            RV_data.append(entry[0])
+        info_data = "recipe"
+
+    temp = c.execute("SELECT {} from {} WHERE username = '{}'".format(info_data, table_name, user)).fetchall()
+    for entry in temp:
+        RV_data.append(entry[0])
     return RV_data
 
 
@@ -147,35 +146,50 @@ def remove_entry(user, table_name):
     else:
         info_data = "recipe"
 
-    top_entry = c.execute("SELECT {} FROM {} WHERE username = '{}' and id = MIN(id)".format(info_data, table_name, user)).fetchone()[0]
+    min_id = c.execute("SELECT MIN(id) FROM {} WHERE username = '{}'".format(table_name, user)).fetchone()[0]
+    top_entry = c.execute("SELECT {} FROM {} WHERE username = '{}' and id = {}".format(info_data, table_name, user, min_id)).fetchone()[0]
     print("deleting:")
     print(top_entry)
 
+    db.commit()
     db.close()
 
 
 # =========== db function tests ===========
-# createTable()
-# add_fav("b", "fav1", "fav_rest")
-# add_fav("a", "fav5", "fav_rest")
-# add_fav("a", "fav12", "fav_rest")
-# add_fav("a", "fav1", "fav_rest")
-# add_RV("a", "RV0", "RV_rest")
-add_RV("a", "RV2", "RVRest")
-# add_RV("a", "RV58", "RV_rec")
+createTable()
+add_fav("b", "fav1", "favRest")
+add_fav("a", "fav5", "favRest")
+add_fav("a", "fav12", "favRest")
+add_fav("a", "fav1", "favRest")
+add_RV("a", "RV0", "RVRest")
+add_RV("a", "RV1", "RVRest")
+add_RV("a", "RV2", "RVRec")
 add_RV("a", "RV3", "RVRest")
+add_RV("a", "RV10", "RVRest")
+add_RV("a", "RV4", "RVRest")
+add_RV("a", "RV58", "RVRec")
+add_RV("a", "RV6", "RVRest")
+add_RV("a", "RV11", "RVRest")
+add_RV("a", "RV46", "RVRest")
+add_RV("a", "RV12", "RVRest")
+add_RV("a", "RV43", "RVRest")
+add_RV("a", "RV47", "RVRest")
+
 # print("a fav rest:")
-# print(get_fav("a", "fav_rest"))
+# print(get_fav("a", "favRest"))
 # print("a RV rest:")
-print(get_RV("a", "RV_rest"))
+print(get_RV("a", "RVRest"))
+add_RV("a", "RV89", "RVRest")
+print("_____________________________")
+print(get_RV("a", "RVRest"))
 # print("a RV rec:")
-# print(get_RV("a", "RV_rec"))
+# print(get_RV("a", "RVRec"))
 # print("b RV rest:")
-# print(get_RV("b", "RV_rest"))
+# print(get_RV("b", "RVRest"))
 # print("b RV rec:")
-# print(get_RV("b", "RV_rec"))
+# print(get_RV("b", "RVRec"))
 # print("b fav rest:")
-# print(get_fav("b", "fav_rest"))
-# print(check_exist("a", "fav1", "fav_rest"))
-# print(check_exist("a", "fav3", "fav_rest"))
-# remove_entry("a", "fav_rest")
+# print(get_fav("b", "favRest"))
+# print(check_exist("a", "fav1", "favRest"))
+# print(check_exist("a", "fav3", "favRest"))
+# remove_entry("a", "favRest")
