@@ -152,44 +152,46 @@ def remove_oldest_entry(user, table_name):
 
     min_id = c.execute("SELECT MIN(id) FROM {} WHERE username = '{}'".format(table_name, user)).fetchone()[0]
     c.execute("DELETE FROM {} WHERE username = '{}' and id = {}".format(table_name, user, min_id))
-    #top_entry = c.execute("SELECT {} FROM {} WHERE username = '{}' and id = {}".format(info_data, table_name, user, min_id)).fetchone()[0]
-    print("deleting:")
-    #print(top_entry)
+    # top_entry = c.execute("SELECT {} FROM {} WHERE username = '{}' and id = {}".format(info_data, table_name, user, min_id)).fetchone()[0]
+    # print("deleting:")
+    # print(top_entry)
 
     db.commit()
     db.close()
 
-def remove_entry(user, rmv_data, table_name):
+def remove_fav(user, rmv_data, table_name):
+    ''' Remove entry in one of the favorites tables '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    if (table_name == "RVRest"):
+    if (table_name == "favRest"):
+        # print("restaurant")
         info_data = "restaurant"
     else:
         info_data = "recipe"
+
     c.execute("DELETE FROM {} WHERE username = '{}' and {} = '{}'".format(table_name, user, info_data, rmv_data))
 
     db.commit()
     db.close()
 
 
-
 # =========== db function tests ===========
-createTable()
+# createTable()
+#
+# add_fav("a", "fav0", "favRest")
+# add_fav("a", "fav1", "favRest")
+# add_fav("a", "fav2", "favRest")
+# add_fav("b", "fav1", "favRest")
+# print(get_fav("a", "favRest"))
+# print("_____________________________")
 
-add_fav("a", "fav0", "favRest")
-add_fav("a", "fav1", "favRest")
-add_fav("a", "fav2", "favRest")
-add_fav("b", "fav1", "favRest")
-print(get_fav("a", "favRest"))
-print("_____________________________")
-
-add_RV("a", "RV0", "RVRest")
-add_RV("a", "RV1", "RVRest")
-add_RV("a", "RV3", "RVRest")
-add_RV("a", "RV10", "RVRest")
-add_RV("a", "RV4", "RVRest")
-add_RV("a", "RV89", "RVRest")
+# add_RV("a", "RV0", "RVRest")
+# add_RV("a", "RV1", "RVRest")
+# add_RV("a", "RV3", "RVRest")
+# add_RV("a", "RV10", "RVRest")
+# add_RV("a", "RV4", "RVRest")
+# add_RV("a", "RV89", "RVRest")
 # add_RV("a", "RV6", "RVRest")
 # add_RV("a", "RV11", "RVRest")
 # add_RV("a", "RV46", "RVRest")
@@ -197,11 +199,11 @@ add_RV("a", "RV89", "RVRest")
 # add_RV("a", "RV43", "RVRest")
 # add_RV("a", "RV47", "RVRest")
 
-add_RV("a", "RV2", "RVRec")
-print(get_RV("a", "RVRest"))
-
-add_RV("a", "RV89", "RVRest")
-print("_____________________________")
+# add_RV("a", "RV2", "RVRec")
+# print(get_RV("a", "RVRest"))
+#
+# add_RV("a", "RV89", "RVRest")
+# print("_____________________________")
 
 
 # print("a RV rec:")
@@ -214,5 +216,7 @@ print("_____________________________")
 # print(get_fav("b", "favRest"))
 # print(check_exist("a", "fav1", "favRest"))
 # print(check_exist("a", "fav3", "favRest"))
-remove_oldest_entry("a", "RVRest")
-print(get_RV("a", "RVRest"))
+# remove_oldest_entry("a", "RVRest")
+# print(get_RV("a", "RVRest"))
+# remove_fav("a", "fav0", "favRest")
+# print(get_fav("a", "favRest"))

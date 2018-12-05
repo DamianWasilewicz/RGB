@@ -178,6 +178,11 @@ added link to bootstrap in shell.html
 choiS -- 2018-12-05 14:04
 --------------------------------------------------------------
 added remove oldest entry from db
-added remove entry from db
+added remove entry from db, might have bugs
 changed get function to return sorted dictionary
+==============================================================
+
+liaoJ -- 2018-12-05 14:44
+--------------------------------------------------------------
+debugged remove_entry and added its docstring
 ==============================================================
