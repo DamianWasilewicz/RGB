@@ -82,7 +82,7 @@ given a recipe id from the F2F database, returns a list of ingredients that are 
 def getRecs(rec_id):
     f2fUrl =  request.Request("https://www.food2fork.com/api/get?key=" + api_dict["f2f"] + "&rId=" + rec_id, headers={'User-Agent': 'Mozilla/5.0'})
     data = json.loads(request.urlopen(f2fUrl).read())
-<<<<<<< HEAD
+#<<<<<<< HEAD
     thing = [data['recipe']['ingredients'],data['recipe']['source_url']]
     return thing	
 	
@@ -128,16 +128,16 @@ def getInfo(ndbno):
 print(searchIng("butter"))
 print("------------------------------------------------------")
 print(getInfo("42148"))
-=======
-    return [data['recipe']['ingredients'],data['recipe']['source_url']]
+#=======
+#    return [data['recipe']['ingredients'],data['recipe']['source_url']]
     	
 
-print(getTypeDict("new","cities"))
-print(getTypeDict("1","establishments"))
-print(getTypeDict("1","cuisines"))
-print(searchRestuarant("1","1","1"))
-li = ["grape%20juice"]
-print(searchRecs(li))
-print("------------------------------------------------------")
-print(getRecs("47050"))
->>>>>>> 9935e8bb4ea70a677be6d876b41eeadeb98c085b
+#print(getTypeDict("new","cities"))
+#print(getTypeDict("1","establishments"))
+#print(getTypeDict("1","cuisines"))
+#print(searchRestuarant("1","1","1"))
+#li = ["grape%20juice"]
+#print(searchRecs(li))
+#print("------------------------------------------------------")
+#print(getRecs("47050"))
+#>>>>>>> 9935e8bb4ea70a677be6d876b41eeadeb98c085b
