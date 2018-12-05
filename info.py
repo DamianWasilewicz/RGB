@@ -82,10 +82,9 @@ given a recipe id from the F2F database, returns a list of ingredients that are 
 def getRecs(rec_id):
     f2fUrl =  request.Request("https://www.food2fork.com/api/get?key=" + api_dict["f2f"] + "&rId=" + rec_id, headers={'User-Agent': 'Mozilla/5.0'})
     data = json.loads(request.urlopen(f2fUrl).read())
-#<<<<<<< HEAD
     thing = [data['recipe']['ingredients'],data['recipe']['source_url']]
-    return thing	
-	
+    return thing
+
 	
 '''
 given an ingredient
@@ -104,9 +103,9 @@ def searchIng(ingredient):
 	return ingreds
 
 '''
-given a valid ndbno id, 
+given a valid ndbno id,
 returns a dictionary with nutrient name : nutrient value
-'''	
+'''
 def getInfo(ndbno):
 	usdaUrl = request.Request("https://api.nal.usda.gov/ndb/V2/reports?type=b&format=json&" + "ndbno=" + ndbno + "&api_key=" + api_dict['usda'],  headers = {'User-Agent':'Mozilla/5'})
 	data = json.loads(request.urlopen(usdaUrl).read())
@@ -114,13 +113,13 @@ def getInfo(ndbno):
 	nuts = {}
 	for nutrient in nutsInfo:
 		nuts[nutrient['name']] = nutrient['value'] + " " + nutrient['unit']
-	return nuts	
-	
-	
+	return nuts
+
+
 #li = ["grape%20juice"]
 #print(searchRecs(li))
 #print("------------------------------------------------------")
-#print(getRecs("47050"))	
+#print(getRecs("47050"))
 # print(getTypeDict("new","cities"))
 # print(getTypeDict("1","establishments"))
 # print(getTypeDict("1","cuisines"))
@@ -130,7 +129,7 @@ print("------------------------------------------------------")
 print(getInfo("42148"))
 #=======
 #    return [data['recipe']['ingredients'],data['recipe']['source_url']]
-    	
+
 
 #print(getTypeDict("new","cities"))
 #print(getTypeDict("1","establishments"))
