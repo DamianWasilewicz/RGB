@@ -134,14 +134,16 @@ def check_exist(user, name_data, table_name):
     for each in ret_val:
         #print(each)
         if (each[0] == name_data):
+            print("repeated entry!")
             return True
     return False
 
-def remove_entry(user, table_name):
+def remove_oldest_entry(user, table_name):
+    ''' removes oldest entry in a table from the database '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    if (table_name == "favRest" or table_name == "RVRest"):
+    if (table_name == "RVRest"):
         info_data = "restaurant"
     else:
         info_data = "recipe"
@@ -167,13 +169,13 @@ add_RV("a", "RV2", "RVRec")
 add_RV("a", "RV3", "RVRest")
 add_RV("a", "RV10", "RVRest")
 add_RV("a", "RV4", "RVRest")
-add_RV("a", "RV58", "RVRec")
-add_RV("a", "RV6", "RVRest")
-add_RV("a", "RV11", "RVRest")
-add_RV("a", "RV46", "RVRest")
-add_RV("a", "RV12", "RVRest")
-add_RV("a", "RV43", "RVRest")
-add_RV("a", "RV47", "RVRest")
+add_RV("a", "RV89", "RVRest")
+# add_RV("a", "RV6", "RVRest")
+# add_RV("a", "RV11", "RVRest")
+# add_RV("a", "RV46", "RVRest")
+# add_RV("a", "RV12", "RVRest")
+# add_RV("a", "RV43", "RVRest")
+# add_RV("a", "RV47", "RVRest")
 
 # print("a fav rest:")
 # print(get_fav("a", "favRest"))
@@ -192,4 +194,4 @@ print(get_RV("a", "RVRest"))
 # print(get_fav("b", "favRest"))
 # print(check_exist("a", "fav1", "favRest"))
 # print(check_exist("a", "fav3", "favRest"))
-# remove_entry("a", "favRest")
+remove_oldest_entry("a", "RVRest")
