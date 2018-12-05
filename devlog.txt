@@ -139,3 +139,8 @@ finished getRestaurants method
 returns list of 10 results based on criteria
 moved api keys to json file
 ==============================================================
+
+liK -- 2018-12-04 23:54
+--------------------------------------------------------------
+merged both info files into one
+==============================================================
