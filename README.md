@@ -22,7 +22,8 @@ Restaurants can be searched by cuisine or type of establishment. The user then s
 5. Install Flask and wheel with `$ pip install flask` and `$ pip install wheel` (this is a Flask application)
 6. Create an `api.json` to store your api keys in. Python will look for only that file, so the file name must match.
    Run these commands in the terminal when in this root directory.
-    `touch keys.json n/ echo { } > keys.json`
+    ```touch keys.json
+    echo { } > keys.json```
 7. Run `$ python app.py`
 8. Launch the root route (http://127.0.0.1:5000/) in your browser to go to the login page.
 
