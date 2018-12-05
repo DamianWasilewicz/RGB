@@ -161,4 +161,23 @@ liK -- 2018-12-05 13:52
 --------------------------------------------------------------
 renamed variables in info.py
 deleted info2.py (already merged into info.py)
+added process city method
+==============================================================
+
+bambaS -- 2018-12-05 13:56
+--------------------------------------------------------------
+updated readme
+==============================================================
+
+liaoJ -- 2018-12-05 14:04
+--------------------------------------------------------------
+refactored html pages to have one file for welcome information
+added link to bootstrap in shell.html
+==============================================================
+
+choiS -- 2018-12-05 14:04
+--------------------------------------------------------------
+added remove oldest entry from db
+added remove entry from db
+changed get function to return sorted dictionary
 ==============================================================
