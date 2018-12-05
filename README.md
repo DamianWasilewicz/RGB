@@ -34,9 +34,6 @@ Four APIs are used in this project:
 ##### USDA Nutrients
 * Provide nutritional information on given ingredients
 * Obtain an API key [here](https://api.data.gov/signup/)
-##### Yelp
-* Provide information about restaurants based on location
-* Make a Yelp account [here](https://www.yelp.com/fusion) and request for an app by providing its title, industry, contact email, and description to obtain an API key
 ##### Zomato
 * Provide information about restaurants based on location
 * Make a Zomato account and obtain an API key [here](https://developers.zomato.com/api#headline1)
