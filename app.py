@@ -74,18 +74,21 @@ def logout():
 #----------- Restaurants Routes-----
 @app.route("/city")
 def processCity():
-	return render_template("restaurant.html", city=info.getTypeDict(request.args["city"],cities))
+	return render_template("cityList.html", city=info.getTypeDict(request.args["city"],cities))
 
+@app.route("/query")
+def processQuery:
+    return render_template(""
 
-@app.route("/recipe")
+#----------- Recipe Routes-----
+@app.route("/recipeIngredient")
 def recipeRoute():
-	args = {}
-	args['user'] = session['logged_in']
-	args['fav_rec'] = ['this','is','a','list']
-	args['rv_rec'] = ['this','is','a','list']
-	return render_template("recipe.html", **args)
+	return render_template("recipeQuery.html", ingredient=info.searchRecs(request.args["ingredient"]))
 
-
+#----------- Ingredient Routes-----
+@app.route("/ingredient")
+def ingredientRoute():
+	return render_template("recipeQuery.html", ingredient=info.searchIngredient(request.args["ingredient"]))
 
 
 

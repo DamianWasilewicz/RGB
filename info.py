@@ -58,10 +58,7 @@ given a list of ingredients
 returns a dictionary of at most 30 top available recipes and id
 '''
 def searchRecs(ingredients):
-	query = ""
-	for food in ingredients:
-		query += food + ","
-	f2fUrl =  request.Request("https://www.food2fork.com/api/search?key=" + api_dict["f2f"] + "&q=" + query, headers={'User-Agent': 'Mozilla/5.0'})
+	f2fUrl =  request.Request("https://www.food2fork.com/api/search?key=" + api_dict["f2f"] + "&q=" + ingredients, headers={'User-Agent': 'Mozilla/5.0'})
 	data = json.loads(request.urlopen(f2fUrl).read())
 	listOfRecs = data['recipes']
 	recs = {}

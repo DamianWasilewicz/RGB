@@ -162,6 +162,7 @@ liK -- 2018-12-05 13:52
 renamed variables in info.py
 deleted info2.py (already merged into info.py)
 added process city method
+html pages for restaurant, recipe, and ingredient path
 ==============================================================
 
 bambaS -- 2018-12-05 13:56
