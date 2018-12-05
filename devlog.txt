@@ -140,6 +140,13 @@ returns list of 10 results based on criteria
 moved api keys to json file
 ==============================================================
 
+choiS,liaoJ -- 2018-12-04 14:10
+--------------------------------------------------------------
+modified add_RV functions to limit recently viewed data to the most recent ten links
+incorporated check_exist into add_fav and add_RV so there are no duplicate entries
+wrote function to remove an entry for the database
+==============================================================
+
 liK -- 2018-12-04 23:54
 --------------------------------------------------------------
 merged both info files into one
@@ -149,4 +156,3 @@ bambaS -- 2018-12-05 00:57
 --------------------------------------------------------------
 added usda api functions into info.py. Can now search for ingredient nutritional info
 ==============================================================
-
