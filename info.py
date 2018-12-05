@@ -53,6 +53,35 @@ def searchRestuarant(city, establishment, cuisine):
                          restuarantListInfo["user_rating"]["aggregate_rating"]])
     return retList
 
+'''
+given a list of ingredients
+returns a dictionary of at most 30 top available recipes and id
+'''
+def searchRecs(ingredients):
+	query = ""
+	for food in ingredients:
+		query += food + ","
+	print(query)
+	f2fUrl =  request.Request("https://www.food2fork.com/api/search?key=" + f2fKey + "&q=" + query, headers={'User-Agent': 'Mozilla/5.0'})
+	data = json.loads(request.urlopen(f2fUrl).read())
+	listOfRecs = data['recipes']
+	recs = {}
+	for rec in listOfRecs:
+		recs[rec['title']] = rec['recipe_id']
+	return recs
+
+
+
+'''
+given a recipe id from the F2F database, returns a list of ingredients that are needed in order to create the dish
+'''
+def getRecs(rec_id):
+    f2fUrl =  request.Request("https://www.food2fork.com/api/get?key=" + f2fKey + "&rId=" + rec_id, headers={'User-Agent': 'Mozilla/5.0'})
+    data = json.loads(request.urlopen(f2fUrl).read())
+    thing = [data['recipe']['ingredients'],data['recipe']['source_url']]
+    return thing	
+	
+	
 # print(getTypeDict("new","cities"))
 # print(getTypeDict("1","establishments"))
 # print(getTypeDict("1","cuisines"))
