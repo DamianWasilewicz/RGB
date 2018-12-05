@@ -82,7 +82,44 @@ def getRecs(rec_id):
     return thing	
 	
 	
+'''
+given an ingredient
+returns a dictionary of at most 20 top results when searched for that ingredient paired with ndbno (USDA id)
+'''
+def searchIng(ingredient):
+	usdaUrl = request.Request("https://api.nal.usda.gov/ndb/search/?format=json&sort=n&max=20&offset=0&ds=Standard%20Reference" + "&q=" + ingredient + "&api_key=" + api_dict["usda"], headers={'User-Agent': 'Mozilla/5.0'})
+	#usdaUrl.add_header("q", ingredient)
+	#usdaUrl.add_header("api_key", api_dict["usda"])
+	#usdaUrl.add_header('User-Agent','Mozilla/5.0')
+	data = json.loads(request.urlopen(usdaUrl).read())
+	listOfIng = data['list']['item']
+	ingreds = {}
+	for ing in listOfIng:
+		ingreds[ing['name']] = ing['ndbno']
+	return ingreds
+
+'''
+given a valid ndbno id, 
+returns a dictionary with nutrient name : nutrient value
+'''	
+def getInfo(ndbno):
+	usdaUrl = request.Request("https://api.nal.usda.gov/ndb/V2/reports?type=b&format=json&" + "ndbno=" + ndbno + "&api_key=" + api_dict['usda'],  headers = {'User-Agent':'Mozilla/5'})
+	data = json.loads(request.urlopen(usdaUrl).read())
+	nutsInfo = data['foods'][0]['food']['nutrients']
+	nuts = {}
+	for nutrient in nutsInfo:
+		nuts[nutrient['name']] = nutrient['value'] + " " + nutrient['unit']
+	return nuts	
+	
+	
+#li = ["grape%20juice"]
+#print(searchRecs(li))
+#print("------------------------------------------------------")
+#print(getRecs("47050"))	
 # print(getTypeDict("new","cities"))
 # print(getTypeDict("1","establishments"))
 # print(getTypeDict("1","cuisines"))
-print(searchRestuarant("1","1","1"))
+#print(searchRestuarant("1","1","1"))
+print(searchIng("butter"))
+print("------------------------------------------------------")
+print(getInfo("42148"))
