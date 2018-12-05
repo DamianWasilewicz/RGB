@@ -4,9 +4,11 @@
     {% block head %}
     <title> {% block title %} Title {% endblock %}  </title>
     {% endblock %}
-    
+
 </head>
 <body><!--Replaceable body -->
+    {% block login %}
+    {% endblock %}
 
     {% block content %}
     content

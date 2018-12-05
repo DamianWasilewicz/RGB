@@ -1,17 +1,8 @@
-{% extends "shell.html" %}
+{% extends "header.html" %}
 
 {% block title %} Restaurants {% endblock %}
 
 {% block content %}
-     Hi, logged in as <b>{{user}}</b>
-    <form action="/logout"><!--Provides option to log out-->
-        <input type="submit" value="Logout">
-    </form>
-
-    <form action="/"><!--Goes to homepage if logged in-->
-        <input type="submit" value="Home">
-    </form>
-
     <br><!--If input criteria aren't fullfilled, flashes error messages -->
     {% set msgs = get_flashed_messages() %}
     {% for each in msgs %}
@@ -22,21 +13,21 @@
        <input type= "text" name= "search"></input> <br><br>
        <input type= "submit" name = "subbutton" value ="Search"></input>
      </form>
-      
+
       {% endfor %}
-	  
-	 
+
+
     Favorite Restaurants: <br>
      {% for name in fav_rest %}
       <input type = "submit" name = "recipe" value = {{name}}></input>
       <br>
        {% endfor %}
-       
+
       Recently Viewed Restaurants: <br>
     {% for name in rv_rest %}
       <input type = "submit" name = "recipe" value = {{name}}></input>
       <br>
        {% endfor %}
-      
+
 
 {% endblock %}

@@ -1,12 +1,10 @@
-{% extends "shell.html" %}
+{% extends "header.html" %}
 
 {% block title %} Home {% endblock %}
 
 {% block content %}
-    Hi, logged in as <b>{{user}}</b>
-    <form action="/logout"><!--Provides option to log out-->
-        <input type="submit" value="Logout">
-    </form>
+
+    {% block home %}{% endblock %}
 
     <br><!--If input criteria aren't fullfilled, flashes error messages -->
     {% set msgs = get_flashed_messages() %}
@@ -18,7 +16,7 @@
       <form action="/restGo">
         <input type="submit" name="Restaurants" value="goRest"> </input>
       </form> <br>
-      
+
       <form action="/recGo">
         <input type="submit" name="Recipes" value="goRec"> </input>
       </form> <br>
