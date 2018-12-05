@@ -12,7 +12,7 @@ Restaurants can be searched by cuisine or type of establishment. The user then s
 
 ### Launch Instructions
 #### Running Flask App
-1. Go to [root repository](https://github.com/joyceliaoo/Waterlemon_Soda) and click "Clone or Download" button
+1. Go to [root repository](https://github.com/shinbamba/RGB) and click "Clone or Download" button
 2. Copy the ssh/https link and run `$ git clone <link>`
 3. Make sure the latest version of Python (currently Python 3.7.1) is installed. If not, download it [here](https://www.python.org/downloads/).
 4. Install virtualenv by running `$ pip install virtualenv`
