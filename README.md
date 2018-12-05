@@ -20,6 +20,10 @@ Restaurants can be searched by cuisine or type of establishment. The user then s
    * Activate it by running `$ . /ENV_DIR/bin/activate`
    * Deactivate it by running `$ deactivate`
 5. Install Flask and wheel with `$ pip install flask` and `$ pip install wheel` (this is a Flask application)
+6. Create an `api.json` to store your api keys in. Python will look for only that file, so the file name must match.
+   Run these commands in the terminal when in this root directory.
+    `touch keys.json`
+    `echo { } > keys.json`
 6. Run `$ python app.py`
 7. Launch the root route (http://127.0.0.1:5000/) in your browser to go to the login page.
 
