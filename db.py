@@ -76,7 +76,7 @@ def add_RV(user, name_RV, table_name): #limit rv's to 10
         row_count = c.execute("SELECT COUNT(*) FROM RVRest WHERE username = '{}'".format(user)).fetchone()[0]
         print(row_count)
         if (row_count > 10):
-            remove_entry(user, table_name)
+            remove_oldest_entry(user, table_name)
         max_id = c.execute("SELECT MAX(id) FROM {} WHERE username = '{}'".format(table_name, user)).fetchone()[0]
         print(max_id)
         if (max_id == None):
@@ -102,21 +102,23 @@ def get_fav(user, table_name):
         fav_data.append(entry[0])
     return fav_data
 
-#add sort to order the ret_val
 def get_RV(user, table_name):
     ''' retrieve the user's recently viewed list '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    RV_data = []
+    RV_data = {}
     if (table_name == "favRest" or table_name == "RVRest"):
         info_data = "restaurant"
     else:
         info_data = "recipe"
 
-    temp = c.execute("SELECT {} from {} WHERE username = '{}'".format(info_data, table_name, user)).fetchall()
+    temp = c.execute("SELECT {},id from {} WHERE username = '{}'".format(info_data, table_name, user)).fetchall()
     for entry in temp:
-        RV_data.append(entry[0])
-    return RV_data
+        #print(entry[0]) -> info_data
+        #print(entry[1]) -> id
+        RV_data[entry[0]] = entry[1]
+        ret_data = sorted(RV_data, key = RV_data.__getitem__)
+    return ret_data
 
 
 def check_exist(user, name_data, table_name):
@@ -149,12 +151,27 @@ def remove_oldest_entry(user, table_name):
         info_data = "recipe"
 
     min_id = c.execute("SELECT MIN(id) FROM {} WHERE username = '{}'".format(table_name, user)).fetchone()[0]
-    top_entry = c.execute("SELECT {} FROM {} WHERE username = '{}' and id = {}".format(info_data, table_name, user, min_id)).fetchone()[0]
+    c.execute("DELETE FROM {} WHERE username = '{}' and id = {}".format(table_name, user, min_id))
+    #top_entry = c.execute("SELECT {} FROM {} WHERE username = '{}' and id = {}".format(info_data, table_name, user, min_id)).fetchone()[0]
     print("deleting:")
-    print(top_entry)
+    #print(top_entry)
 
     db.commit()
     db.close()
+
+def remove_entry(user, rmv_data, table_name):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+
+    if (table_name == "RVRest"):
+        info_data = "restaurant"
+    else:
+        info_data = "recipe"
+    c.execute("DELETE FROM {} WHERE username = '{}' and {} = '{}'".format(table_name, user, info_data, rmv_data))
+
+    db.commit()
+    db.close()
+
 
 
 # =========== db function tests ===========
@@ -184,8 +201,8 @@ add_RV("a", "RV2", "RVRec")
 print(get_RV("a", "RVRest"))
 
 add_RV("a", "RV89", "RVRest")
-print(get_RV("a", "RVRest"))
 print("_____________________________")
+
 
 # print("a RV rec:")
 # print(get_RV("a", "RVRec"))
@@ -198,3 +215,4 @@ print("_____________________________")
 # print(check_exist("a", "fav1", "favRest"))
 # print(check_exist("a", "fav3", "favRest"))
 remove_oldest_entry("a", "RVRest")
+print(get_RV("a", "RVRest"))
