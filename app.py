@@ -6,7 +6,7 @@ import os
 from flask import Flask, request, render_template, \
      flash, session, url_for, redirect
 
-import db
+import db, info2
 
 
 app = Flask(__name__)
@@ -72,18 +72,13 @@ def logout():
     return redirect(url_for("login"))
 
 #----------- Restaurants Routes-----
-@app.route("/restGo")
-def restGo():
-	args = {}
-	args['user'] = session['logged_in']
-	args['fav_rest'] = ['this','is','a','list']
-	args['rv_rest'] = ['this','is','a','list']
-	return render_template("restaurant.html",**args)
+@app.route("/city")
+def processCity():
+	return render_template("restaurant.html", city=info.getTypeDict(request.args["city"],cities))
 
 
-#----------- Recipe Routes -----------
-@app.route("/recGo")
-def recGo():
+@app.route("/recipe")
+def recipeRoute():
 	args = {}
 	args['user'] = session['logged_in']
 	args['fav_rec'] = ['this','is','a','list']
