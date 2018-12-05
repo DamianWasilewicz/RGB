@@ -159,13 +159,16 @@ def remove_oldest_entry(user, table_name):
 
 # =========== db function tests ===========
 createTable()
-add_fav("b", "fav1", "favRest")
-add_fav("a", "fav5", "favRest")
-add_fav("a", "fav12", "favRest")
+
+add_fav("a", "fav0", "favRest")
 add_fav("a", "fav1", "favRest")
+add_fav("a", "fav2", "favRest")
+add_fav("b", "fav1", "favRest")
+print(get_fav("a", "favRest"))
+print("_____________________________")
+
 add_RV("a", "RV0", "RVRest")
 add_RV("a", "RV1", "RVRest")
-add_RV("a", "RV2", "RVRec")
 add_RV("a", "RV3", "RVRest")
 add_RV("a", "RV10", "RVRest")
 add_RV("a", "RV4", "RVRest")
@@ -177,13 +180,13 @@ add_RV("a", "RV89", "RVRest")
 # add_RV("a", "RV43", "RVRest")
 # add_RV("a", "RV47", "RVRest")
 
-# print("a fav rest:")
-# print(get_fav("a", "favRest"))
-# print("a RV rest:")
+add_RV("a", "RV2", "RVRec")
 print(get_RV("a", "RVRest"))
+
 add_RV("a", "RV89", "RVRest")
-print("_____________________________")
 print(get_RV("a", "RVRest"))
+print("_____________________________")
+
 # print("a RV rec:")
 # print(get_RV("a", "RVRec"))
 # print("b RV rest:")
