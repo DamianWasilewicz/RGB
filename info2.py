@@ -48,6 +48,12 @@ def getRecs(rec_id):
     thing = [data['recipe']['ingredients'],data['recipe']['source_url']]
     return thing
 	
+'''
+given an ingredient
+returns a dictionary of at most 20 top results when searched for that ingredient paired with ndbmo (USDA id)
+'''
+def searchIng(ingredients):
+	
 	
 	
 li = ["grape%20juice"]
