@@ -1,0 +1,12 @@
+{% extends "header.html" %}
+
+{% block title %} Recipe List {% endblock %}
+
+{% block content %}
+
+  {% for recipe in recipeData %}
+    <a href="/recipe?id={{recipeData[recipe]}}">{{recipe}}</a><br>
+  {% endfor %}
+
+
+{% endblock %}

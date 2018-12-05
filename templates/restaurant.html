@@ -1,33 +1,14 @@
 {% extends "header.html" %}
 
-{% block title %} Restaurants {% endblock %}
+{% block title %} Restaurant {% endblock %}
 
 {% block content %}
-    <br><!--If input criteria aren't fullfilled, flashes error messages -->
-    {% set msgs = get_flashed_messages() %}
-    {% for each in msgs %}
-      <b>{{each}}</b>
 
-     <form action="/search" method= "POST">
-       search <br>
-       <input type= "text" name= "search"></input> <br><br>
-       <input type= "submit" name = "subbutton" value ="Search"></input>
-     </form>
-
-      {% endfor %}
-
-
-    Favorite Restaurants: <br>
-     {% for name in fav_rest %}
-      <input type = "submit" name = "recipe" value = {{name}}></input>
-      <br>
-       {% endfor %}
-
-      Recently Viewed Restaurants: <br>
-    {% for name in rv_rest %}
-      <input type = "submit" name = "recipe" value = {{name}}></input>
-      <br>
-       {% endfor %}
-
+{% for restaurant in restaurantList %}
+    {{restaurant[0]}}<br>
+    {{restaurant[1]}}<br>
+    {{restaurant[2]}}<br>
+    <br>
+{% endfor %}
 
 {% endblock %}

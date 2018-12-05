@@ -6,7 +6,7 @@ import os
 from flask import Flask, request, render_template, \
      flash, session, url_for, redirect
 
-import db, info2
+import db, info
 
 
 app = Flask(__name__)
@@ -19,7 +19,7 @@ app.secret_key = os.urandom(32)
 @app.route("/")
 def login():
     if "logged_in" in session:
-        return redirect(url_for("home"))
+        return redirect(url_for("recipePath"))
     return render_template("login.html")
 
 #Authenticates user and creates a session
@@ -27,7 +27,7 @@ def login():
 def authenticate():
     if db.auth_user(request.args["user"], request.args["password"]):
         session["logged_in"] = request.args["user"]
-        return redirect(url_for("home"))
+        return redirect(url_for("recipePath"))
     else:
         flash("username or password is incorrect")
         return redirect(url_for("login"))
@@ -58,37 +58,56 @@ def add_user():
     session["logged_in"] = request.args["user"]
     return redirect(url_for("home"))
 
-#---------- Home Route ----------
-#Displays home page
-@app.route("/home")
-def home():
-    return render_template("home.html", user=session["logged_in"])
-
 #---------- Logout Route ----------
 #Logs the user out and removes session
+
 @app.route("/logout")
 def logout():
     session.pop("logged_in")
     return redirect(url_for("login"))
 
-#----------- Restaurants Routes-----
-@app.route("/city")
-def processCity():
-	return render_template("cityList.html", city=info.getTypeDict(request.args["city"],cities))
-
-@app.route("/query")
-def processQuery:
-    return render_template(""
 
 #----------- Recipe Routes-----
-@app.route("/recipeIngredient")
-def recipeRoute():
-	return render_template("recipeQuery.html", ingredient=info.searchRecs(request.args["ingredient"]))
 
-#----------- Ingredient Routes-----
-@app.route("/ingredient")
-def ingredientRoute():
-	return render_template("recipeQuery.html", ingredient=info.searchIngredient(request.args["ingredient"]))
+#Displays home page
+@app.route("/recipePath")
+def recipePath():
+    return render_template("recipePath.html", user=session["logged_in"])
+
+@app.route("/processIngredient")
+def processIngredient():
+	return render_template("recipeList.html", recipeData=info.searchRecs(request.args["ingredient"]))
+
+@app.route("/recipe")
+def recipe():
+    return render_template("recipe.html", recipe=info.getRecs(request.args["id"]))
+#----------- Restaurants Routes-----
+
+@app.route("/restaurantPath")
+def restaurantPath():
+    return render_template("restaurantPath.html")
+
+@app.route("/processCity")
+def processCity():
+	return render_template("cityList.html", cityList=info.getTypeDict(request.args["city"], "cities"))
+
+@app.route("/city")
+def city():
+    return render_template("restaurantQuery.html", city=request.args["id"], 
+    establishmentList=info.getTypeDict(request.args["id"],"establishments"),
+    cuisineList=info.getTypeDict(request.args["id"],"cuisines"))
+
+@app.route("/processQuery")
+def processQuery():
+    establishment = request.args["establishment"]
+    cuisine = request.args["cuisine"]
+    if establishment == "none":
+        establishment = None
+    if cuisine == "none":
+        cuisine = None
+    return render_template("restaurant.html", restaurantList=info.searchRestuarant(request.args["city"], establishment, cuisine))
+#----------- USDA Routes-----
+
 
 
 

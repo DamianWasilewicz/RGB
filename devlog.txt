@@ -187,3 +187,9 @@ liaoJ -- 2018-12-05 14:44
 --------------------------------------------------------------
 debugged remove_entry and added its docstring
 ==============================================================
+
+liK -- 2018-12-05 18:22
+--------------------------------------------------------------
+completed pathway for restaurant and recipe
+able to traverse all the way to a list of restaurants or view one recipe
+==============================================================

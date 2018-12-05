@@ -1,25 +1,12 @@
 {% extends "header.html" %}
 
-{% block title %}Recipes {% endblock %}
+{% block title %} Recipe {% endblock %}
 
 {% block content %}
-    <br><!--If input criteria aren't fullfilled, flashes error messages -->
-    {% set msgs = get_flashed_messages() %}
-    {% for each in msgs %}
-      <b>{{each}}</b>
-
-      {% endfor %}
-     Favorite Recipes: <br>
-     {% for name in fav_rec %}
-      <input type = "submit" name = "recipe" value = {{name}}></input>
-      <br>
-       {% endfor %}
-
-      Recently Viewed Recipes: <br>
-    {% for name in rv_rec %}
-      <input type = "submit" name = "recipe" value = {{name}}></input>
-      <br>
-       {% endfor %}
-
-
+    {{recipe[0]}}<br>
+    <img src="{{recipe[3]}}" alt="{{recipe[0]}}"><br>
+    {% for ingredient in recipe[1] %}
+        {{ingredient}}<br>
+    {% endfor %}
+    <a href="{{recipe[2]}}">Source</a>
 {% endblock %}

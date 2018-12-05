@@ -1,13 +1,15 @@
 {% extends "shell.html" %}
 
 {% block login %}
-    Hi, logged in as <b>{{user}}</b>
     <form action="/logout"><!--Provides option to log out-->
        <input type="submit" value="Logout">
     </form>
     {% block home %}
-        <form action="/"><!--Goes to homepage if logged in-->
-           <input type="submit" value="Home">
+        <form action="/recipePath"><!--Goes to homepage if logged in-->
+           <input type="submit" value="2Cook">
         </form>
+        <form action="/restaurantPath"><!--Goes to homepage if logged in-->
+            <input type="submit" value="Not2Cook">
+         </form>
     {% endblock %}
 {% endblock %}
