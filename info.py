@@ -75,16 +75,9 @@ given a recipe id from the F2F database, returns a list of ingredients that are 
 def getRecs(rec_id):
     f2fUrl =  request.Request("https://www.food2fork.com/api/get?key=" + api_dict["f2f"] + "&rId=" + rec_id, headers={'User-Agent': 'Mozilla/5.0'})
     data = json.loads(request.urlopen(f2fUrl).read())
-<<<<<<< HEAD
     return [data['recipe']['ingredients'],data['recipe']['source_url']]
 
 
-=======
-    thing = [data['recipe']['ingredients'],data['recipe']['source_url']]
-    return thing
-
-
->>>>>>> 583bf36694f827f53516503c51645c3bd3186c3b
 '''
 given an ingredient
 returns a dictionary of at most 20 top results when searched for that ingredient paired with ndbno (USDA id)
@@ -103,16 +96,11 @@ def searchIngredient(ingredient):
 
 '''
 given a valid ndbno id,
-<<<<<<< HEAD
 returns a dictionary with nutrient {name : nutrient value}
-=======
-returns a dictionary with nutrient name : nutrient value
->>>>>>> 583bf36694f827f53516503c51645c3bd3186c3b
 '''
 def getInfo(ndbno):
 	usdaUrl = request.Request("https://api.nal.usda.gov/ndb/V2/reports?type=b&format=json&" + "ndbno=" + ndbno + "&api_key=" + api_dict['usda'],  headers = {'User-Agent':'Mozilla/5'})
 	data = json.loads(request.urlopen(usdaUrl).read())
-<<<<<<< HEAD
 	nutrientInfo = data['foods'][0]['food']['nutrients']
 	nutrientDict = {}
 	for nutrient in nutrientInfo:
@@ -124,44 +112,10 @@ print(getTypeDict("new","cities"))
 print(getTypeDict("1","establishments"))
 print(getTypeDict("1","cuisines"))
 print(searchRestuarant("1","1","1"))
-=======
-	nutsInfo = data['foods'][0]['food']['nutrients']
-	nuts = {}
-	for nutrient in nutsInfo:
-		nuts[nutrient['name']] = nutrient['value'] + " " + nutrient['unit']
-	return nuts
-
-
-#li = ["grape%20juice"]
-#print(searchRecs(li))
-#print("------------------------------------------------------")
-#print(getRecs("47050"))
-# print(getTypeDict("new","cities"))
-# print(getTypeDict("1","establishments"))
-# print(getTypeDict("1","cuisines"))
-#print(searchRestuarant("1","1","1"))
-print(searchIng("butter"))
->>>>>>> 583bf36694f827f53516503c51645c3bd3186c3b
 print("------------------------------------------------------")
 print(searchIngredient("butter"))
 print(getInfo("42148"))
-<<<<<<< HEAD
 print("------------------------------------------------------")
 print(searchRecs("butter"))
 print(getRecs("47050"))
 print("------------------------------------------------------")
-=======
-#=======
-#    return [data['recipe']['ingredients'],data['recipe']['source_url']]
-
-
-#print(getTypeDict("new","cities"))
-#print(getTypeDict("1","establishments"))
-#print(getTypeDict("1","cuisines"))
-#print(searchRestuarant("1","1","1"))
-#li = ["grape%20juice"]
-#print(searchRecs(li))
-#print("------------------------------------------------------")
-#print(getRecs("47050"))
-#>>>>>>> 9935e8bb4ea70a677be6d876b41eeadeb98c085b
->>>>>>> 583bf36694f827f53516503c51645c3bd3186c3b
