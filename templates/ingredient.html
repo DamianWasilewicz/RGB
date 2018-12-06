@@ -1,0 +1,12 @@
+{% extends "header.html" %}
+
+{% block title %} Ingredient Info {% endblock %}
+
+{% block content %}
+
+  {% for nutrient in ingredient %}
+    {{nutrient}} = {{ingredient[nutrient]}}<br>
+  {% endfor %}
+
+
+{% endblock %}

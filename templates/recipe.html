@@ -9,4 +9,10 @@
         {{ingredient}}<br>
     {% endfor %}
     <a href="{{recipe[2]}}">Source</a>
+	<br><br>
+	See an interesting ingredient? Look it up to find its nutritional info!
+	 <form action="/processNutrients">
+        <input type="text" name="ingredient">
+        <input type="submit" value="submit"> </input>
+      </form>
 {% endblock %}

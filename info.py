@@ -81,7 +81,7 @@ given an ingredient
 returns a dictionary of at most 20 top results when searched for that ingredient paired with ndbno (USDA id)
 '''
 def searchIngredient(ingredient):
-	usdaUrl = request.Request("https://api.nal.usda.gov/ndb/search/?format=json&sort=n&max=10&offset=0&ds=Standard%20Reference" + "&q=" + ingredient + "&api_key=" + api_dict["usda"], headers={'User-Agent': 'Mozilla/5.0'})
+	usdaUrl = request.Request("https://api.nal.usda.gov/ndb/search/?format=json&sort=r&max=20&offset=0&ds=Standard%20Reference" + "&q=" + ingredient + "&api_key=" + api_dict["usda"], headers={'User-Agent': 'Mozilla/5.0'})
 	#usdaUrl.add_header("q", ingredient)
 	#usdaUrl.add_header("api_key", api_dict["usda"])
 	#usdaUrl.add_header('User-Agent','Mozilla/5.0')
@@ -90,6 +90,7 @@ def searchIngredient(ingredient):
 	ingreds = {}
 	for ing in listOfIng:
 		ingreds[ing['name']] = ing['ndbno']
+	print(ingreds)
 	return ingreds
 
 '''
@@ -111,7 +112,7 @@ def getInfo(ndbno):
 # print(getTypeDict("1","cuisines"))
 # print(searchRestuarant("1","1","1"))
 # print("------------------------------------------------------")
-# print(searchIngredient("butter"))
+print(searchIngredient("butter"))
 # print(getInfo("42148"))
 # print("------------------------------------------------------")
 # print(searchRecs("butter"))

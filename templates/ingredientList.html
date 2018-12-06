@@ -1,0 +1,12 @@
+{% extends "header.html" %}
+
+{% block title %} Ingredient List {% endblock %}
+
+{% block content %}
+
+  {% for ingredient in ingredientData %}
+    <a href="/ingredient?ndbno={{ingredientData[ingredient]}}">{{ingredient}}</a><br>
+  {% endfor %}
+
+
+{% endblock %}

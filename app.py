@@ -107,9 +107,13 @@ def processQuery():
         cuisine = None
     return render_template("restaurant.html", restaurantList=info.searchRestuarant(request.args["city"], establishment, cuisine))
 #----------- USDA Routes-----
+@app.route("/processNutrients")
+def processNutrients():
+	return render_template("ingredientList.html", ingredientData = info.searchIngredient(request.args['ingredient']) )
 
-
-
+@app.route("/ingredient")
+def ingredient():
+	return render_template("ingredient.html", ingredient = info.getInfo(request.args['ndbno']))
 
 if __name__ == "__main__":
     app.debug = True
