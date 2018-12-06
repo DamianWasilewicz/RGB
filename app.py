@@ -73,7 +73,10 @@ def logout():
 
 @app.route("/home")
 def home():
-    return render_template("home.html", user=session["logged_in"])
+    try:
+        return render_template("home.html", user=session["logged_in"])
+    except:
+        return redirect(url_for(login))
 
 @app.route("/fav")
 def show_favorites():

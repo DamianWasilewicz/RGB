@@ -6,7 +6,7 @@
   <form action="/processQuery">
     <label for="est_s">Establishment</label>
     <select class="custom-select" name="establishment" id="est_s" size="5">
-        <option value="none">No Preference</option>
+        <option value="none" selected>No Preference</option>
         {% for establishment in establishmentList %}
             <option value="{{establishmentList[establishment]}}">{{establishment}}</option>
         {% endfor %}
