@@ -1,8 +1,12 @@
 {% extends "shell.html" %}
 
 {% block login %}
+    Hello, logged in as {{user}}
     <form action="/logout"><!--Provides option to log out-->
        <input type="submit" value="Logout">
+    </form>
+    <form action="/fav"><!--Provides option to log out-->
+       <input type="submit" value="Favorites">
     </form>
     {% block home %}
         <form action="/recipePath"><!--Goes to homepage if logged in-->

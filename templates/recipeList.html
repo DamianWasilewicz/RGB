@@ -6,7 +6,9 @@
 
   {% for recipe in recipeData %}
     <a href="/recipe?id={{recipeData[recipe]}}">{{recipe}}</a><br>
+    <form action="/addFav">
+        <input class="btn btn-danger" type="submit" value="Add to favorites">
+    </form>
   {% endfor %}
-
 
 {% endblock %}

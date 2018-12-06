@@ -4,23 +4,25 @@
 
 {% block content %}
 
-    <h2> Welcome </h2>
+    <h2> Feeling hungry? </h2>
     <!--Flashes errors if user/pass are wrong or blank -->
     {% set msgs = get_flashed_messages() %}
     {% for each in msgs %}
-      {{each}}
+      <div class="alert alert-warning" role="alert">{{each}}</div>
 
     {% endfor %}
 
     <form action="/auth"><!--Able to login by submitting existing user/pass or make new account by pressing "register"-->
-
-      Username:  <input type="text" name="user">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="user" class="form-control" id="username" placeholder="username">
+        </div>
+        <div class="form-group">
+            <label for="password">Pasword</label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="password">
+        </div>
       <br>
-      <br>
-      Password:  <input type="password" name="password">
-      <br>
-      <br>
-      <input type="submit" value="Login">
+      <input type="submit" value="Login" class="btn btn-warning">
       <br>
       <br>
       No account? Register <a href="/register">here</a></form>

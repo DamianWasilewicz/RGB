@@ -6,7 +6,7 @@ import os
 from flask import Flask, request, render_template, \
      flash, session, url_for, redirect
 
-import db, info
+from util import db, info
 
 
 app = Flask(__name__)
@@ -19,7 +19,7 @@ app.secret_key = os.urandom(32)
 @app.route("/")
 def login():
     if "logged_in" in session:
-        return redirect(url_for("recipePath"))
+        return redirect(url_for("home"))
     return render_template("login.html")
 
 #Authenticates user and creates a session
@@ -27,7 +27,7 @@ def login():
 def authenticate():
     if db.auth_user(request.args["user"], request.args["password"]):
         session["logged_in"] = request.args["user"]
-        return redirect(url_for("recipePath"))
+        return redirect(url_for("home"))
     else:
         flash("username or password is incorrect")
         return redirect(url_for("login"))
@@ -63,57 +63,76 @@ def add_user():
 
 @app.route("/logout")
 def logout():
-    session.pop("logged_in")
-    return redirect(url_for("login"))
+    try:
+        session.pop("logged_in")
+    finally:
+        return redirect(url_for("login"))
 
 
+#---------- Main Page ----------
+
+@app.route("/home")
+def home():
+    return render_template("home.html", user=session["logged_in"])
+
+@app.route("/fav")
+def show_favorites():
+    return render_template("favorites.html", user=session["logged_in"], recipe=db.get_fav(session[logged_in], "favRec"))
 #----------- Recipe Routes-----
 
 #Displays home page
 @app.route("/recipePath")
 def recipePath():
+    """Ask user for an ingredient the recipe has to include."""
     return render_template("recipePath.html", user=session["logged_in"])
 
 @app.route("/processIngredient")
 def processIngredient():
-	return render_template("recipeList.html", recipeData=info.searchRecs(request.args["ingredient"]))
+    """Display a list of recipes based on user input."""
+    return render_template("recipeList.html", recipeData=info.searchRecs(request.args["ingredient"]), user=session["logged_in"])
 
 @app.route("/recipe")
 def recipe():
-    return render_template("recipe.html", recipe=info.getRecs(request.args["id"]))
+    """Display content of a selected recipe."""
+    return render_template("recipe.html", recipe=info.getRecs(request.args["id"]), user=session["logged_in"])
 #----------- Restaurants Routes-----
 
 @app.route("/restaurantPath")
 def restaurantPath():
-    return render_template("restaurantPath.html")
+    """Ask user to enter a city name."""
+    return render_template("restaurantPath.html", user=session["logged_in"])
 
 @app.route("/processCity")
 def processCity():
-	return render_template("cityList.html", cityList=info.getTypeDict(request.args["city"], "cities"))
+    """Show a list of cities the user can select."""
+    return render_template("cityList.html", cityList=info.getTypeDict(request.args["city"], "cities"), user=session["logged_in"])
 
 @app.route("/city")
 def city():
-    return render_template("restaurantQuery.html", city=request.args["id"], 
+    """Show the choices for establishments or cuisines."""
+    return render_template("restaurantQuery.html", city=request.args["id"],
     establishmentList=info.getTypeDict(request.args["id"],"establishments"),
-    cuisineList=info.getTypeDict(request.args["id"],"cuisines"))
+    cuisineList=info.getTypeDict(request.args["id"],"cuisines"), user=session["logged_in"])
 
 @app.route("/processQuery")
 def processQuery():
+    """Show a list of restaurants that match the user's preferences."""
     establishment = request.args["establishment"]
     cuisine = request.args["cuisine"]
     if establishment == "none":
         establishment = None
     if cuisine == "none":
         cuisine = None
-    return render_template("restaurant.html", restaurantList=info.searchRestuarant(request.args["city"], establishment, cuisine))
+    return render_template("restaurant.html", restaurantList=info.searchRestuarant(request.args["city"], establishment, cuisine), user=session["logged_in"])
+
 #----------- USDA Routes-----
 @app.route("/processNutrients")
 def processNutrients():
-	return render_template("ingredientList.html", ingredientData = info.searchIngredient(request.args['ingredient']) )
+	return render_template("ingredientList.html", ingredientData = info.searchIngredient(request.args['ingredient']), user=session["logged_in"])
 
 @app.route("/ingredient")
 def ingredient():
-	return render_template("ingredient.html", ingredient = info.getInfo(request.args['ndbno']))
+	return render_template("ingredient.html", ingredient = info.getInfo(request.args['ndbno']), user=session["logged_in"])
 
 if __name__ == "__main__":
     app.debug = True

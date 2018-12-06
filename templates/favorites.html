@@ -1,0 +1,11 @@
+{% extends header.html %}
+
+{% block title %} Favorites {% endblock %}
+
+{% block content %}
+<h3> Recipes </h3>
+<ul>
+{% for each in recipe %}
+<li>{{each}}</li>
+</ul>
+{% endblock %}

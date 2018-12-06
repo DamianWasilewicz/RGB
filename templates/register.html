@@ -7,7 +7,9 @@
 
     {% set msgs = get_flashed_messages() %}<!--If input criteria aren't fullfilled upon submitting, flash errors -->
     {% for each in msgs %}
-      {{each}}
+      <div class="alert alert-warning" role="alert">{{each}}</<div>
+
+      </div>
     {% endfor %}
 
     <form action="/adduser"><!--Post hides info from url. Makes sure user doesn't already exist & password matches confirm -->

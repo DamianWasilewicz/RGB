@@ -193,3 +193,11 @@ liK -- 2018-12-05 18:22
 completed pathway for restaurant and recipe
 able to traverse all the way to a list of restaurants or view one recipe
 ==============================================================
+
+liaoJ -- 2018-12-05 23:04
+--------------------------------------------------------------
+fixed docstring format in info.py
+added placeholder route and html for favorites page
+initial styling of login page using Bootstrap
+added try and except for logout in app.py
+==============================================================
