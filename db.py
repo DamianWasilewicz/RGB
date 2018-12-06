@@ -43,7 +43,7 @@ def auth_user(username, password):
         if(entry[0] == username and entry[1] == password):
             db.close()
             return True
-        db.close()
+    db.close()
     return False
 
 def check_user(username):
@@ -55,7 +55,7 @@ def check_user(username):
         if(entry[0] == username):
             db.close()
             return True
-        db.close()
+    db.close()
     return False
 
 def add_fav(user, name_fav, table_name):
@@ -64,8 +64,8 @@ def add_fav(user, name_fav, table_name):
     c = db.cursor()
     if (not check_exist(user, name_fav, table_name)):
         c.execute("INSERT INTO {} VALUES(?, ?)".format(table_name), (user, name_fav))
-        db.commit()
-        db.close()
+    db.commit()
+    db.close()
 
 def add_RV(user, name_RV, table_name): #limit rv's to 10
     ''' update the user's recently viewed list '''
@@ -100,6 +100,7 @@ def get_fav(user, table_name):
     temp = c.execute("SELECT {} FROM {} WHERE username = '{}'".format(info_data, table_name, user)).fetchall()
     for entry in temp:
         fav_data.append(entry[0])
+    db.close()
     return fav_data
 
 def get_RV(user, table_name):
@@ -118,6 +119,7 @@ def get_RV(user, table_name):
         #print(entry[1]) -> id
         RV_data[entry[0]] = entry[1]
         ret_data = sorted(RV_data, key = RV_data.__getitem__)
+    db.close()
     return ret_data
 
 
@@ -137,7 +139,9 @@ def check_exist(user, name_data, table_name):
         #print(each)
         if (each[0] == name_data):
             print("repeated entry!")
+            db.close()
             return True
+    db.close()
     return False
 
 def remove_oldest_entry(user, table_name):
