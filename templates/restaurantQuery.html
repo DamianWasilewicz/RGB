@@ -3,24 +3,27 @@
 {% block title %} Restaurant Query {% endblock %}
 
 {% block content %}
+<h2 class="titleMsg"> What's to be cooked? </h2>
+<div class="search_group">
   <form action="/processQuery">
-    <label for="est_s">Establishment</label>
-    <select class="custom-select" name="establishment" id="est_s" size="5">
+    <label for="est_s" id="s_tag">Establishment</label>
+    <select class="custom-select" name="establishment" id="est_s">
         <option value="none" selected>No Preference</option>
         {% for establishment in establishmentList %}
             <option value="{{establishmentList[establishment]}}">{{establishment}}</option>
         {% endfor %}
     </select>
     <br>
-    <label for="cui_s">Cuisine</label>
+    <label for="cui_s" id="s_tag">Cuisine</label>
     <select class="custom-select" name="cuisine" id="cui_s">
-      <option value="none">No Preference</option>
+      <option value="none" selected>No Preference</option>
       {% for cuisine in cuisineList %}
           <option value="{{cuisineList[cuisine]}}">{{cuisine}}</option>
       {% endfor %}
     </select>
     <br>
     <input type="hidden" name="city" value={{city}}>
-    <input type="submit" value="Submit">
+    <div class="center"><button type="submit" class="btn btn-warning" id="search_btn">Get my results!</button></div>
   </form>
+ </div>
 {% endblock %}

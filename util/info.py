@@ -99,7 +99,7 @@ def getInfo(ndbno):
 # print(getTypeDict("1","cuisines"))
 # print(searchRestuarant("1","1","1"))
 # print("------------------------------------------------------")
-print(searchIngredient("butter"))
+# print(searchIngredient("butter"))
 # print(getInfo("42148"))
 # print("------------------------------------------------------")
 # print(searchRecs("butter"))

@@ -3,12 +3,28 @@
 {% block title %} Restaurant {% endblock %}
 
 {% block content %}
-
+<h2 class="titleMsg"> Let's get movin' </h2>
+<div class="center search_group">
+<div class="accordion" id="rest_list">
 {% for restaurant in restaurantList %}
-    {{restaurant[0]}}<br>
+  <div class="card">
+    <div class="card-header" id="rest_header">
+      <h5 class="mb-0" id="rest_name">
+          {{restaurant[0]}}
+      </h5>
+    </div>
+    <div id="rest_info" class="collapse show" aria-labelledby="rest_header" data-parent="#rest_list">
+      <div class="card-body">
+          Address: {{restaurant[1]}}<br>
+          Rating: {{restaurant[2]}}<br>
+      </div>
+    </div>
+  </div>
+    <!-- {{restaurant[0]}}<br>
     {{restaurant[1]}}<br>
     {{restaurant[2]}}<br>
-    <br>
+    <br> -->
 {% endfor %}
-
+</div>
+</div>
 {% endblock %}

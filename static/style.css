@@ -26,17 +26,32 @@
 
 /* navbar */
 .navbar {
-    background-color: #856A5D;
+    background-color: #edbfb7;
 }
 
 #logo {
-    color: #D8B4A0;
+    color: #352A25;
 }
 
 #navbar_user {
     padding-right: 20px;
     /* padding-top: 2px; */
-    color: #C2B4AE;
+    color: #856A5D;
+}
+
+.nav-link {
+    color:#8E726D;
+}
+
+#nav_lg {
+    color:#4c004c;
+    background-color:#edbfb7;
+    border: 1px solid #4c004c;
+}
+
+#nav_lg:hover {
+    background-color:#4c004c;
+    color:#edbfb7;
 }
 /* ======================== */
 
@@ -65,4 +80,12 @@
 #search_btn {
     width: 50%;
     margin: 20px;
+}
+
+#s_tag {
+    margin: 10px;
+}
+
+#rest_name {
+    color:#4c004c;
 }
