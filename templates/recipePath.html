@@ -5,7 +5,7 @@
 {% block content %}
       Type an ingredient to find recipes for it
       <form action="/processIngredient">
-        <input type="text" name="ingredient">
+        <input type="text" name="ingredient" required>
         <input type="submit" value="submit"> </input>
       </form>
 {% endblock %}

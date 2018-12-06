@@ -6,11 +6,12 @@ with open('api.json', 'r') as file:
 
 def getTypeDict(query, type):
     """Return the dictionary based on the type specified {name of type:zomato specific id}.
-
     The dictionary depends on the type given: cities, establishments or cuisines.
     """
+    query = query.strip()
     typeDict = dict() #creates a dictionary of type
     if (type == "cities"):
+        query = query.replace(" ", "_")
         qString = "/cities?q=" + query
     elif (type == "establishments"):
         qString = "/establishments?city_id=" + query
@@ -33,7 +34,6 @@ def getTypeDict(query, type):
 
 def searchRestuarant(city, establishment, cuisine):
     """Return 10 restuarants that fall into the criteria of city, establishment and cuisine.
-
     Single restuarant list is [name, address, location]
     """
     qString = "/search?entity_id=" + city + "&entity_type=city&count=10"
@@ -55,6 +55,7 @@ def searchRestuarant(city, establishment, cuisine):
 
 def searchRecs(ingredients):
     """Return a dictionary of at most 30 top available recipes and id given a list of ingredients"""
+    ingredients = ingredients.strip().replace(" ", "%20")
     f2fUrl =  request.Request("https://www.food2fork.com/api/search?key=" + api_dict["f2f"] + "&q=" + ingredients, headers={'User-Agent': 'Mozilla/5.0'})
     data = json.loads(request.urlopen(f2fUrl).read())
     listOfRecs = data['recipes']
@@ -71,6 +72,7 @@ def getRecs(rec_id):
 
 def searchIngredient(ingredient):
     """Return a dictionary of at most 20 top results when searched for that ingredient paired with ndbno (USDA id) given an ingredient."""
+    ingredient = ingredient.strip().replace(" ", "%20")
     usdaUrl = request.Request("https://api.nal.usda.gov/ndb/search/?format=json&sort=r&max=20&offset=0&ds=Standard%20Reference" + "&q=" + ingredient + "&api_key=" + api_dict["usda"], headers={'User-Agent': 'Mozilla/5.0'})
     #usdaUrl.add_header("q", ingredient)
     #usdaUrl.add_header("api_key", api_dict["usda"])
