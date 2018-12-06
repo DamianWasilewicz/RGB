@@ -27,7 +27,7 @@ Restaurants can be searched by cuisine or type of establishment. The user then s
 8. Launch the root route (http://127.0.0.1:5000/) in your browser to go to the login page.
 
 #### API information
-Four APIs are used in this project:
+Three APIs are used in this project:
 ##### Food2Fork
 * Provides ingredients to recipes
 * Sign up for a free account on the [documentation page](https://www.food2fork.com/about/api)
