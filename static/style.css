@@ -1,3 +1,10 @@
+/* general styling */
+.center {
+    text-align: center;
+}
+/* ======================== */
+
+/* login and register */
 .userInfo {
     width: 30%;
     margin: auto;
@@ -9,12 +16,28 @@
     text-align: center;
 }
 
-.center {
-    text-align: center;
-}
-
 #account {
     color: #856A5D;
     width: 50%;
     margin: 5px;
 }
+/* ======================== */
+
+/* navbar */
+.navbar {
+    background-color: #856A5D;
+}
+
+#logo {
+    color: #D8B4A0;
+}
+
+#navbar_user {
+    padding-right: 20px;
+    /* padding-top: 2px; */
+    color: #C2B4AE;
+}
+
+/* #nav_link a:active {
+    color:#42352E;
+} */

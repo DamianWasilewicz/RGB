@@ -1,19 +1,29 @@
 {% extends "shell.html" %}
 
 {% block login %}
-    {{user}}
-    <form action="/logout"><!--Provides option to log out-->
-       <input type="submit" value="Logout">
+<nav class="navbar sticky-top navbar-expand-lg navbar-light">
+    <span class="navbar-brand" id="logo">2Cook or Not2Cook</span>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav mr-auto">
+        {% block home %}
+        <li class="nav-item">
+            <a class="nav-link" href="/"">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/recipePath">Recipes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/restaurantPath">Restaurants</a>
+        </li>
+        {% endblock %}
+      <li class="nav-item">
+        <a class="nav-link" href="/fav">Favorites</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" action="/logout"><!--Provides option to log out-->
+        <span id="navbar_user">{{user}}</span>
+        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Logout</button>
     </form>
-    <form action="/fav"><!--Provides option to log out-->
-       <input type="submit" value="Favorites">
-    </form>
-    {% block home %}
-        <form action="/recipePath"><!--Goes to homepage if logged in-->
-           <input type="submit" value="2Cook">
-        </form>
-        <form action="/restaurantPath"><!--Goes to homepage if logged in-->
-            <input type="submit" value="Not2Cook">
-         </form>
-    {% endblock %}
+</div>
+</nav>
 {% endblock %}
