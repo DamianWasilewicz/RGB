@@ -214,3 +214,8 @@ added CSS for login,register, home, restaurantPath, cityList
 created navbar
 CSS for restaurantQuery is in progress
 ==============================================================
+
+liaoJ -- 2018-12-06 13:15
+--------------------------------------------------------------
+Finished css for all restaurant html pages
+==============================================================
