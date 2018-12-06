@@ -173,7 +173,7 @@ def processNutrients():
     if request.args["ingredient"].strip() == "":
         flash("Please insert text")
         return redirect(url_for(processNutrients))
-	return render_template("ingredientList.html", ingredientData = info.searchIngredient(request.args['ingredient']), user=session["logged_in"])
+    return render_template("ingredientList.html", ingredientData = info.searchIngredient(request.args['ingredient']), user=session["logged_in"])
 
 @app.route("/ingredient")
 def ingredient():
