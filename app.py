@@ -96,7 +96,7 @@ def processIngredient():
     """Display a list of recipes based on user input."""
     if request.args["ingredient"].strip() == "":
         flash("Please insert text")
-        return redirect(url_for(processIngredient))
+        return redirect(url_for("recipePath"))
     return render_template("recipeList.html", recipeData=info.searchRecs(request.args["ingredient"]), user=session["logged_in"])
 
 @app.route("/recipe")
@@ -117,13 +117,13 @@ def recipe():
         button_status = "disabled"
     else:
         button_status = ""
-    return render_template("recipe.html", recipe= data, user=session["logged_in"], fav = fav_data, button = button_status)
+    return render_template("recipe.html", recipe=data, user=session["logged_in"], fav = fav_data, button = button_status, id=request.args["id"])
 
 @app.route("/addFav")
 def addFav():
     print(request.args)
     for each in request.args:
-        print(each);
+        print(each)
         if (request.args[each] == 'Add to favorites'):
             fav_data = each
             each = each.split("||")
@@ -134,8 +134,28 @@ def addFav():
     username = session["logged_in"]
     db.add_fav(username, info_name, recID, "favRec")
     return render_template("recipe.html", recipe= data, user=session["logged_in"], fav = fav_data)
-#----------- Restaurants Routes-----
 
+#----------- USDA Routes-----
+@app.route("/processNutrients")
+def processNutrients():
+    if request.args["ingredient"].strip() == "":
+        flash("Please insert text")
+        data = info.getRecs(request.args["id"])
+        recID = request.args["id"]
+        fav_data = data[0].replace(" ", "{~}") + "||" + recID
+        db.add_RV(session["logged_in"], data[0], "RVRec", recID)
+        if (db.check_exist(session["logged_in"], data[0], "favRec")):
+            button_status = "disabled"
+        else:
+            button_status = ""
+        return render_template("recipe.html", recipe=data, user=session["logged_in"], fav = fav_data, button = button_status, id=request.args["id"])        
+    return render_template("ingredientList.html", ingredientData = info.searchIngredient(request.args['ingredient']), user=session["logged_in"])
+
+@app.route("/ingredient")
+def ingredient():
+	return render_template("ingredient.html", ingredient = info.getInfo(request.args['ndbno']), user=session["logged_in"])
+
+#----------- Restaurants Routes-----
 @app.route("/restaurantPath")
 def restaurantPath():
     """Ask user to enter a city name."""
@@ -146,7 +166,7 @@ def processCity():
     """Show a list of cities the user can select."""
     if request.args["city"].strip() == "":
         flash("Please insert text")
-        return redirect(url_for(processCity))
+        return redirect(url_for("restaurantPath"))
     return render_template("cityList.html", cityList=info.getTypeDict(request.args["city"], "cities"), user=session["logged_in"])
 
 @app.route("/city")
@@ -166,18 +186,6 @@ def processQuery():
     if cuisine == "none":
         cuisine = None
     return render_template("restaurant.html", restaurantList=info.searchRestuarant(request.args["city"], establishment, cuisine), user=session["logged_in"])
-
-#----------- USDA Routes-----
-@app.route("/processNutrients")
-def processNutrients():
-    if request.args["ingredient"].strip() == "":
-        flash("Please insert text")
-        return redirect(url_for(processNutrients))
-    return render_template("ingredientList.html", ingredientData = info.searchIngredient(request.args['ingredient']), user=session["logged_in"])
-
-@app.route("/ingredient")
-def ingredient():
-	return render_template("ingredient.html", ingredient = info.getInfo(request.args['ndbno']), user=session["logged_in"])
 
 if __name__ == "__main__":
     app.debug = True

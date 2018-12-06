@@ -18,7 +18,8 @@
         	See an interesting ingredient? Look it up to find its nutritional info!
         	 <form action="/processNutrients">
                 <input type="text" name="ingredient">
-                <input type="submit" value="submit"> </input>
+                <input type="hidden" name="id" value={{id}}>
+                <div class="center"><button type="submit" class="btn btn-warning" id="search_btn">Submit</button></div>
               </form>
         	  <form action="/addFav">
                 <input class="btn btn-danger" type="submit" name = {{fav}} value="Add to favorites" {{button}}>
