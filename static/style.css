@@ -1,0 +1,20 @@
+.userInfo {
+    width: 30%;
+    margin: auto;
+    padding-top: 10%;
+}
+
+.titleMsg {
+    color: #856A5D;
+    text-align: center;
+}
+
+.center {
+    text-align: center;
+}
+
+#account {
+    color: #856A5D;
+    width: 50%;
+    margin: 5px;
+}

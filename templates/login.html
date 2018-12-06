@@ -3,8 +3,8 @@
 {% block title %} Login {% endblock %}
 
 {% block content %}
-
-    <h2> Feeling hungry? </h2>
+<div class="userInfo">
+    <h2 class="titleMsg"> 2Cook or Not2Cook </h2>
     <!--Flashes errors if user/pass are wrong or blank -->
     {% set msgs = get_flashed_messages() %}
     {% for each in msgs %}
@@ -18,12 +18,14 @@
             <input type="text" name="user" class="form-control" id="username" placeholder="username">
         </div>
         <div class="form-group">
-            <label for="password">Pasword</label>
+            <label for="password">Password</label>
             <input type="password" name="password" class="form-control" id="password" placeholder="password">
         </div>
       <br>
-      <input type="submit" value="Login" class="btn btn-warning">
+      <div class="center"><button type="submit" class="btn btn-warning" id="account">Login</button></div>
       <br>
       <br>
-      No account? Register <a href="/register">here</a></form>
+      No account? <a href="/register">Join us</a> today!
+      </form>
+</div>
 {% endblock %}
