@@ -15,7 +15,7 @@
         <input type="text" name="ingredient">
         <input type="submit" value="submit"> </input>
       </form>
-	  <form action="/addFav?id={{recipe[4]}}">
-        <input class="btn btn-danger" type="submit" value="Add to favorites">
+	  <form action="/addFav">
+        <input class="btn btn-danger" type="submit" name = {{fav}} value="Add to favorites" {{button}}>
     </form>
 {% endblock %}

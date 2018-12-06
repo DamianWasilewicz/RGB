@@ -87,7 +87,9 @@ def show_favorites():
 @app.route("/recipePath")
 def recipePath():
     """Ask user for an ingredient the recipe has to include."""
-    return render_template("recipePath.html", user=session["logged_in"])
+    data = db.get_fav(session["logged_in"], "favRec")
+    print(data)
+    return render_template("recipePath.html", user=session["logged_in"], favs = db.get_fav(session["logged_in"], "favRec"))
 
 @app.route("/processIngredient")
 def processIngredient():
@@ -97,13 +99,38 @@ def processIngredient():
 @app.route("/recipe")
 def recipe():
     """Display content of a selected recipe."""
-    return render_template("recipe.html", recipe=info.getRecs(request.args["id"]), user=session["logged_in"])
+    #data[0] = title
+    #data[1] = list of ingredients
+    #data[2] = recipe link
+    #data[3] = img url
+    data = info.getRecs(request.args["id"])
+    #print("data:")
+    #print(data)
+    recID = request.args["id"]
+    fav_data = data[0].replace(" ", "{~}") + "||" + recID
+    #print(fav_data)
+    db.add_RV(session["logged_in"], data[0], "RVRec", recID)
+    if (db.check_exist(session["logged_in"], data[0], "favRec")):
+        button_status = "disabled"
+    else:
+        button_status = ""
+    return render_template("recipe.html", recipe= data, user=session["logged_in"], fav = fav_data, button = button_status)
 
 @app.route("/addFav")
 def addFav():
-	'''Add recipe to favorites list'''
-	flash("Added to favorites")
-	return render_template("recipe.html",recipe = info.getRecs(request.args["id"]), user=session["logged_in"])
+    print(request.args)
+    for each in request.args:
+        print(each);
+        if (request.args[each] == 'Add to favorites'):
+            fav_data = each
+            each = each.split("||")
+            recID = each[1]
+            info_name = each[0].replace("{~}", " ")
+            print(each[0])
+    data = info.getRecs(recID)
+    username = session["logged_in"]
+    db.add_fav(username, info_name, recID, "favRec")
+    return render_template("recipe.html", recipe= data, user=session["logged_in"], fav = fav_data)
 #----------- Restaurants Routes-----
 
 @app.route("/restaurantPath")

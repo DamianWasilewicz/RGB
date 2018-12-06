@@ -11,13 +11,13 @@ def createTable():
     command = "CREATE TABLE favRest (username TEXT, restaurant TEXT)"
     c.execute(command)
 
-    command = "CREATE TABLE favRec (username TEXT, recipe TEXT)"
+    command = "CREATE TABLE favRec (username TEXT, recipe TEXT, id INTEGER)"
     c.execute(command)
 
     command = "CREATE TABLE RVRest (username TEXT, restaurant TEXT, id INTEGER)"
     c.execute(command)
 
-    command = "CREATE TABLE RVRec (username TEXT, recipe TEXT, id INTEGER)"
+    command = "CREATE TABLE RVRec (username TEXT, recipe TEXT, id INTEGER, recID INTEGER)"
     c.execute(command)
 
     db.commit() #save changes
@@ -58,17 +58,21 @@ def check_user(username):
     db.close()
     return False
 
-def add_fav(user, name_fav, table_name):
+def add_fav(user, name_fav, id, table_name):
     """Add a new favorite associated with the user to the corresponding table."""
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     #allows to add favorite if it does not already exist
     if (not check_exist(user, name_fav, table_name)):
-        c.execute("INSERT INTO {} VALUES(?, ?)".format(table_name), (user, name_fav))
-    db.commit()
+        c.execute("INSERT INTO {} VALUES(?, ?, ?)".format(table_name), (user, name_fav, id))
+        db.commit()
+        db.close()
+        return True
+    print(get_fav)
     db.close()
+    return False
 
-def add_RV(user, name_RV, table_name): #limit rv's to 10
+def add_RV(user, name_RV, table_name, rec_id): #limit rv's to 10
     """Update the user's recently viewed list."""
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -86,7 +90,7 @@ def add_RV(user, name_RV, table_name): #limit rv's to 10
         else:
             next_id = max_id + 1
         #add most recent
-        c.execute("INSERT INTO {} VALUES(?, ?, ?)".format(table_name), (user, name_RV, next_id))
+        c.execute("INSERT INTO {} VALUES(?, ?, ?, ?)".format(table_name), (user, name_RV, next_id, rec_id))
     db.commit()
     db.close()
 
@@ -186,7 +190,7 @@ def remove_fav(user, rmv_data, table_name):
 
 
 # =========== db function tests ===========
-# createTable()
+#createTable()
 #
 # add_fav("a", "fav0", "favRest")
 # add_fav("a", "fav1", "favRest")
