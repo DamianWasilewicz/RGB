@@ -3,19 +3,27 @@
 {% block title %} Recipe {% endblock %}
 
 {% block content %}
-    {{recipe[0]}}<br>
-    <img src="{{recipe[3]}}" alt="{{recipe[0]}}"><br>
-    {% for ingredient in recipe[1] %}
-        {{ingredient}}<br>
-    {% endfor %}
-    <a href="{{recipe[2]}}">Source</a>
-	<br><br>
-	See an interesting ingredient? Look it up to find its nutritional info!
-	 <form action="/processNutrients">
-        <input type="text" name="ingredient">
-        <input type="submit" value="submit"> </input>
-      </form>
-	  <form action="/addFav">
-        <input class="btn btn-danger" type="submit" name = {{fav}} value="Add to favorites" {{button}}>
-    </form>
+    <h2 class="titleMsg">{{recipe[0]}}</h2>
+    <div class="recipe_box">
+        <div class="card">
+            <div class="center"><img class="card-img-top" src="{{recipe[3]}}" alt="{{recipe[0]}}" id="recipe_img"><br>
+            <div class="card-body">
+                <h5 class="card-title">What You Need</h5>
+            {% for ingredient in recipe[1] %}
+                {{ingredient}}<br>
+            {% endfor %}
+            <h5> <a href="{{recipe[2]}}">directions</a></h5>
+        	<br><br>
+            </div>
+        	See an interesting ingredient? Look it up to find its nutritional info!
+        	 <form action="/processNutrients">
+                <input type="text" name="ingredient">
+                <input type="submit" value="submit"> </input>
+              </form>
+        	  <form action="/addFav">
+                <input class="btn btn-danger" type="submit" name = {{fav}} value="Add to favorites" {{button}}>
+            </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

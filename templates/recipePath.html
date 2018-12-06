@@ -3,9 +3,13 @@
 {% block title %} Recipe Path {% endblock %}
 
 {% block content %}
-      Type an ingredient to find recipes for it
+<div class="search_group">
+  <h2 class="titleMsg"> What ingredient do you have?</h2>
       <form action="/processIngredient">
-        <input type="text" name="ingredient">
-        <input type="submit" value="submit"> </input>
+          <div class="form-group center">
+              <input type="text" name="ingredient" class="form-control" placeholder="eg: egg">
+          </div>
+          <div class="center"><button type="submit" class="btn btn-warning" id="search_btn">Get Recipes</button></div>
       </form>
+</div>
 {% endblock %}

@@ -89,3 +89,15 @@
 #rest_name {
     color:#4c004c;
 }
+/* ======================== */
+
+/* recipes */
+.recipe_box {
+    width:70%;
+    margin: auto;
+}
+
+#recipe_img {
+    width: 30em;
+    height: 20em;
+}
