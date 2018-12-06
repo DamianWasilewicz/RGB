@@ -201,3 +201,9 @@ added placeholder route and html for favorites page
 initial styling of login page using Bootstrap
 added try and except for logout in app.py
 ==============================================================
+
+bambaS -- 2018-12-06 01:48
+--------------------------------------------------------------
+can search and get results for ingredients nutritional value. 
+Cannot add recipes to favorites list
+==============================================================

@@ -67,7 +67,7 @@ def getRecs(rec_id):
     """Return a list of data regarding the recipe: [name, ingredients, source, image] given a recipe id from the F2F database."""
     f2fUrl =  request.Request("https://www.food2fork.com/api/get?key=" + api_dict["f2f"] + "&rId=" + rec_id, headers={'User-Agent': 'Mozilla/5.0'})
     data = json.loads(request.urlopen(f2fUrl).read())
-    return [data['recipe']['title'], data['recipe']['ingredients'], data['recipe']['source_url'], data['recipe']['image_url']]
+    return [data['recipe']['title'], data['recipe']['ingredients'], data['recipe']['source_url'], data['recipe']['image_url'],rec_id]
 
 def searchIngredient(ingredient):
     """Return a dictionary of at most 20 top results when searched for that ingredient paired with ndbno (USDA id) given an ingredient."""
@@ -99,7 +99,7 @@ def getInfo(ndbno):
 # print(getTypeDict("1","cuisines"))
 # print(searchRestuarant("1","1","1"))
 # print("------------------------------------------------------")
-# print(searchIngredient("butter"))
+print(searchIngredient("butter"))
 # print(getInfo("42148"))
 # print("------------------------------------------------------")
 # print(searchRecs("butter"))

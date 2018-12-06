@@ -95,6 +95,12 @@ def processIngredient():
 def recipe():
     """Display content of a selected recipe."""
     return render_template("recipe.html", recipe=info.getRecs(request.args["id"]), user=session["logged_in"])
+
+@app.route("/addFav")
+def addFav():
+	'''Add recipe to favorites list'''
+	flash("Added to favorites")
+	return render_template("recipe.html",recipe = info.getRecs(request.args["id"]), user=session["logged_in"])
 #----------- Restaurants Routes-----
 
 @app.route("/restaurantPath")
