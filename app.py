@@ -94,6 +94,9 @@ def recipePath():
 @app.route("/processIngredient")
 def processIngredient():
     """Display a list of recipes based on user input."""
+    if request.args["ingredient"].strip() == "":
+        flash("Please insert text")
+        return redirect(url_for(processIngredient))
     return render_template("recipeList.html", recipeData=info.searchRecs(request.args["ingredient"]), user=session["logged_in"])
 
 @app.route("/recipe")
@@ -141,6 +144,9 @@ def restaurantPath():
 @app.route("/processCity")
 def processCity():
     """Show a list of cities the user can select."""
+    if request.args["city"].strip() == "":
+        flash("Please insert text")
+        return redirect(url_for(processCity))
     return render_template("cityList.html", cityList=info.getTypeDict(request.args["city"], "cities"), user=session["logged_in"])
 
 @app.route("/city")
@@ -164,7 +170,10 @@ def processQuery():
 #----------- USDA Routes-----
 @app.route("/processNutrients")
 def processNutrients():
-	return render_template("ingredientList.html", ingredientData = info.searchIngredient(request.args['ingredient']), user=session["logged_in"])
+    if request.args["ingredient"].strip() == "":
+        flash("Please insert text")
+        return redirect(url_for(processNutrients))
+    return render_template("ingredientList.html", ingredientData = info.searchIngredient(request.args['ingredient']), user=session["logged_in"])
 
 @app.route("/ingredient")
 def ingredient():

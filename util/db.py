@@ -1,5 +1,5 @@
 import sqlite3
-DB_FILE="food.db"
+DB_FILE="data/food.db"
 
 def createTable():
     """Creates the two main data tables for users and list of stories."""
