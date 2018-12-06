@@ -54,3 +54,15 @@
     margin: 5px;
     width:50%;
 }
+/* ======================== */
+
+/* restaurants */
+.search_group {
+    width:40%;
+    margin:auto;
+}
+
+#search_btn {
+    width: 50%;
+    margin: 20px;
+}

@@ -3,9 +3,11 @@
 {% block title %} City List {% endblock %}
 
 {% block content %}
-
-{% for city in cityList %}
-    <a href="/city?id={{cityList[city]}}">{{city}}</a><br>
-{% endfor %}
+<h2 class="titleMsg"> Choose A Location </h2>
+    {% for city in cityList %}
+    <div class="center">
+        <a href="/city?id={{cityList[city]}}"><button type="submit" id="choice">{{city}}</button></a>
+    </div>
+    {% endfor %}
 
 {% endblock %}

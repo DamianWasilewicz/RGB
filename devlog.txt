@@ -204,6 +204,13 @@ added try and except for logout in app.py
 
 bambaS -- 2018-12-06 01:48
 --------------------------------------------------------------
-can search and get results for ingredients nutritional value. 
+can search and get results for ingredients nutritional value.
 Cannot add recipes to favorites list
+==============================================================
+
+liaoJ -- 2018-12-06 02:13
+--------------------------------------------------------------
+added CSS for login,register, home, restaurantPath, cityList
+created navbar
+CSS for restaurantQuery is in progress
 ==============================================================

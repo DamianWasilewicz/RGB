@@ -4,16 +4,16 @@
 
 {% block content %}
   <form action="/processQuery">
-    Establishment:
-    <select name="establishment">
+    <label for="est_s">Establishment</label>
+    <select class="custom-select" name="establishment" id="est_s" size="5">
         <option value="none">No Preference</option>
-    {% for establishment in establishmentList %}
-        <option value="{{establishmentList[establishment]}}">{{establishment}}</option>
-    {% endfor %}
+        {% for establishment in establishmentList %}
+            <option value="{{establishmentList[establishment]}}">{{establishment}}</option>
+        {% endfor %}
     </select>
     <br>
-    Cuisine:
-    <select name="cuisine">
+    <label for="cui_s">Cuisine</label>
+    <select class="custom-select" name="cuisine" id="cui_s">
       <option value="none">No Preference</option>
       {% for cuisine in cuisineList %}
           <option value="{{cuisineList[cuisine]}}">{{cuisine}}</option>
