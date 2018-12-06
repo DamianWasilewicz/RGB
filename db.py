@@ -2,7 +2,7 @@ import sqlite3
 DB_FILE="food.db"
 
 def createTable():
-    ''' creates the two main data tables for users and list of stories '''
+    """Creates the two main data tables for users and list of stories."""
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     command = "CREATE TABLE users (username TEXT, password TEXT)"
@@ -26,7 +26,7 @@ def createTable():
 # createTable()
 
 def add_user(username, password):
-    ''' insert credentials for newly registered user into database '''
+    """Insert credentials for newly registered user into database."""
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("INSERT INTO users VALUES(?, ?)", (username, password))
@@ -34,7 +34,7 @@ def add_user(username, password):
     db.close()  #close database
 
 def auth_user(username, password):
-    ''' authenticate a user attempting to log in '''
+    """Authenticate a user attempting to log in."""
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
@@ -47,7 +47,7 @@ def auth_user(username, password):
     return False
 
 def check_user(username):
-    ''' check if a username has already been taken when registering '''
+    """Check if a username has already been taken when registering."""
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
@@ -59,36 +59,39 @@ def check_user(username):
     return False
 
 def add_fav(user, name_fav, table_name):
-    ''' add a new favorite associated with the user to the corresponding table '''
+    """Add a new favorite associated with the user to the corresponding table."""
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
+    #allows to add favorite if it does not already exist
     if (not check_exist(user, name_fav, table_name)):
         c.execute("INSERT INTO {} VALUES(?, ?)".format(table_name), (user, name_fav))
     db.commit()
     db.close()
 
 def add_RV(user, name_RV, table_name): #limit rv's to 10
-    ''' update the user's recently viewed list '''
+    """Update the user's recently viewed list."""
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     #gets current max id
     if (not check_exist(user, name_RV, table_name)):
         row_count = c.execute("SELECT COUNT(*) FROM RVRest WHERE username = '{}'".format(user)).fetchone()[0]
-        print(row_count)
+        # print(row_count)
+        #remove oldest entry if there are 10 already
         if (row_count > 10):
             remove_oldest_entry(user, table_name)
         max_id = c.execute("SELECT MAX(id) FROM {} WHERE username = '{}'".format(table_name, user)).fetchone()[0]
-        print(max_id)
+        # print(max_id)
         if (max_id == None):
             next_id = 0
         else:
             next_id = max_id + 1
+        #add most recent
         c.execute("INSERT INTO {} VALUES(?, ?, ?)".format(table_name), (user, name_RV, next_id))
     db.commit()
     db.close()
 
 def get_fav(user, table_name):
-    ''' retrieve a list of the user's favorites for given type '''
+    """Retrieve a list of the user's favorites for given type."""
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     fav_data = []
@@ -104,7 +107,7 @@ def get_fav(user, table_name):
     return fav_data
 
 def get_RV(user, table_name):
-    ''' retrieve the user's recently viewed list '''
+    """Retrieve the user's recently viewed list."""
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     RV_data = {}
@@ -118,13 +121,14 @@ def get_RV(user, table_name):
         #print(entry[0]) -> info_data
         #print(entry[1]) -> id
         RV_data[entry[0]] = entry[1]
+        #sort data by its id
         ret_data = sorted(RV_data, key = RV_data.__getitem__)
     db.close()
     return ret_data
 
 
 def check_exist(user, name_data, table_name):
-    ''' check if an entry is already in the user's favorites or recently viewed '''
+    """Check if an entry is already in the user's favorites or recently viewed."""
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
@@ -137,15 +141,16 @@ def check_exist(user, name_data, table_name):
     ret_val = c.execute("SELECT {} from {} WHERE username = '{}'".format(info_data, table_name, user))
     for each in ret_val:
         #print(each)
+        #go through list to see if any entry matches given entry
         if (each[0] == name_data):
-            print("repeated entry!")
+            # print("repeated entry!")
             db.close()
             return True
     db.close()
     return False
 
 def remove_oldest_entry(user, table_name):
-    ''' removes oldest entry in a table from the database '''
+    """Removes oldest entry in a table from the database."""
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
@@ -164,7 +169,7 @@ def remove_oldest_entry(user, table_name):
     db.close()
 
 def remove_fav(user, rmv_data, table_name):
-    ''' Remove entry in one of the favorites tables '''
+    """Remove entry in one of the favorites tables."""
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
