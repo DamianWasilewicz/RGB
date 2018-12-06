@@ -6,15 +6,15 @@
 
 {% block content %}
 
-    <br><!--If input criteria aren't fullfilled, flashes error messages -->
-    {% set msgs = get_flashed_messages() %}
-    {% for each in msgs %}
-      <b>{{each}}</b>
-
-      {% endfor %}
-
-      <button type="button" class="btn btn-outline-dark"><a href="/recipePath">To Cook</a></button>
-      <button type="button" class="btn btn-outline-dark"><a href="/restaurantPath">Not To Cook</a></button>
-
-
+    <h1 class="titleMsg"> What Are You Feeling Today? </h1>
+    <div class="center">
+        <form action="/recipePath">
+            <button type="button" id="choice">To Cook</button>
+        </form>
+    </div>
+    <div class="center">
+        <form action="/restaurantPath">
+            <button type="submit" id="choice">Not To Cook</button>
+        </form>
+    </div>
 {% endblock %}
