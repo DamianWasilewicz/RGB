@@ -1,8 +1,11 @@
 from urllib import request
 import json
 
-with open('api.json', 'r') as file:
-    api_dict = json.load(file)
+try:
+    with open('api.json', 'r') as file:
+        api_dict = json.load(file)
+except:
+    print("Missing api.json")
 
 def getTypeDict(query, type):
     """Return the dictionary based on the type specified {name of type:zomato specific id}.
