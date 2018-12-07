@@ -16,5 +16,10 @@
         </div>
         <div class="center"><button type="submit" class="btn btn-warning" id="search_btn">Get Recipes</button></div>
     </form>
+    {% for each in RV_data %}
+        <a href = "http://127.0.0.1:5000/recipe?id={{each[1]}}""> {{each[0]}} </a>
+        <br>
+
+    {% endfor %}
 </div>
 {% endblock %}
