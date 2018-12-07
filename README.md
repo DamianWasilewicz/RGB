@@ -21,7 +21,8 @@ Restaurants can be searched by cuisine or type of establishment. The user then s
 5. Install Flask and wheel with `$ pip install flask` and `$ pip install wheel` (this is a Flask application)
 6. Create an `api.json` to store your api keys in. Python will look for only that file, so the file name must match.
    Skeleton for `api.json`:
-```{
+```
+{
   "f2f" : "YOUR_API_KEY",
   "zomato" : "YOUR_API_KEY",
   "usda" : "YOUR_API_KEY"
