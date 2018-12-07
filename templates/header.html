@@ -1,5 +1,12 @@
 {% extends "shell.html" %}
 
+{% block alert %}
+{% set msgs = get_flashed_messages() %}
+{% for each in msgs %}
+  <div class="alert alert-danger" role="alert">{{each}}</div>
+{% endfor %}
+{% endblock %}
+
 {% block login %}
 <nav class="navbar sticky-top navbar-expand-lg navbar-light">
     <span class="navbar-brand" id="logo">2Cook or Not2Cook</span>
@@ -7,7 +14,7 @@
     <ul class="navbar-nav mr-auto">
         {% block home %}
         <li class="nav-item">
-            <a class="nav-link" href="/"">Home</a>
+            <a class="nav-link" href="/">Home</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/recipePath">Recipes</a>

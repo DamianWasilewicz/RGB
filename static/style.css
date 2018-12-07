@@ -93,11 +93,59 @@
 
 /* recipes */
 .recipe_box {
-    width:70%;
+    width:60%;
     margin: auto;
 }
 
 #recipe_img {
-    width: 30em;
-    height: 20em;
+    width: 25em;
+    height: 18em;
+    margin: 2em;
+}
+
+#ig_list {
+    margin: 20px;
+    color: #515751;
+}
+
+#ig_heading {
+    color: #352a25;
+}
+/* ======================== */
+
+/* ingredients */
+#ig_btn {
+    border: 2px solid #C2C1A5;
+    color: #878773;
+    padding: 10px;
+    margin: 5px;
+    width:60%;
+}
+
+#ig_btn:hover {
+    color: #ffffff;
+    background-color: #C2C1A5;
+}
+
+.nut_info {
+    color: #5A665E;
+}
+
+.nut_info tr:nth-child(even) {
+    background-color: #DADDDB;
+}
+/* ======================== */
+
+/* favorites */
+#fav_rec_btn {
+    border: 2px solid #d5aba4;
+    color: #d5aba4;
+    padding: 10px;
+    margin: 5px;
+    width:60%;
+}
+
+#fav_rec_btn:hover {
+    color: #ffffff;
+    background-color: #d5aba4;
 }

@@ -3,10 +3,10 @@
 {% block title %} Favorites {% endblock %}
 
 {% block content %}
-<h3> Recipes </h3>
-<ul>
+<h3 class="titleMsg"> Recipes </h3>
+<div class="center search_group">
 {% for each in recipe %}
-<li> <a href = "http://127.0.0.1:5000/recipe?id={{each[1]}}""> {{each[0]}} </a> </li>
+    <a href = "/recipe?id={{each[1]}}""><button type="submit" id="fav_rec_btn">{{each[0]}}</button></a>
 {% endfor %}
-</ul>
+</div>
 {% endblock %}
