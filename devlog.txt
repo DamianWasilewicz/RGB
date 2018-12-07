@@ -243,7 +243,9 @@ fixed bugs relating to white space in usda path
 added try and catch blocks for every api method
 ==============================================================
 
-liaoJ -- 2018-12-06 23:07
+liaoJ -- 2018-12-06 01:15
 --------------------------------------------------------------
 Finished css for all recipe pages, ingredient pages, and favorites page
+Added try and except checks for all functions in app.py
+Added flash messages to header.html
 ==============================================================
