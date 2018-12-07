@@ -89,7 +89,8 @@ def recipePath():
     """Ask user for an ingredient the recipe has to include."""
     # data = db.get_fav(session["logged_in"], "favRec")
     # print(data)
-    return render_template("recipePath.html", user=session["logged_in"], favs = db.get_fav(session["logged_in"], "favRec"))
+    rv_data = db.get_RV(session["logged_in"], "RVRec")
+    return render_template("recipePath.html", user=session["logged_in"], favs = db.get_fav(session["logged_in"], "favRec"), RV_data = rv_data)
 
 @app.route("/processIngredient")
 def processIngredient():

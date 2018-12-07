@@ -3,7 +3,7 @@ DB_FILE="data/food.db"
 
 def createTable():
     """Creates the two main data tables for users and list of stories."""
-    db = sqlite3.connect(DB_FILE)
+    db = sqlite3.connect("../"+DB_FILE)
     c = db.cursor()
     command = "CREATE TABLE users (username TEXT, password TEXT)"
     c.execute(command)
@@ -17,13 +17,13 @@ def createTable():
     command = "CREATE TABLE RVRest (username TEXT, restaurant TEXT, id INTEGER)"
     c.execute(command)
 
-    command = "CREATE TABLE RVRec (username TEXT, recipe TEXT, id INTEGER, recID INTEGER)"
+    command = "CREATE TABLE RVRec (username TEXT, recipe TEXT, id INTEGER, recID TEXT)"
     c.execute(command)
 
     db.commit() #save changes
     db.close()  #close database
 
-# createTable()
+#createTable()
 
 def add_user(username, password):
     """Insert credentials for newly registered user into database."""
@@ -120,16 +120,24 @@ def get_RV(user, table_name):
     else:
         info_data = "recipe"
 
-    temp = c.execute("SELECT {},id from {} WHERE username = '{}'".format(info_data, table_name, user)).fetchall()
+    temp = c.execute("SELECT {},id, recID from {} WHERE username = '{}'".format(info_data, table_name, user)).fetchall()
     for entry in temp:
         #print(entry[0]) -> info_data
         #print(entry[1]) -> id
-        RV_data[entry[0]] = entry[1]
-        #sort data by its id
-        ret_data = sorted(RV_data, key = RV_data.__getitem__)
+        RV_data[entry[1]] = [entry[0], entry[2]]
+    #sort data by its id
+    temp_data = sorted(RV_data)
+    print(temp_data)
+    ret_data = [];
+    for each in temp_data:
+        smth = RV_data.get(each, "")
+        print("smth")
+        print(smth)
+        ret_data.append( smth )
+    print("ret_data:")
+    print(ret_data)
     db.close()
     return ret_data
-
 
 def check_exist(user, name_data, table_name):
     """Check if an entry is already in the user's favorites or recently viewed."""
@@ -190,7 +198,7 @@ def remove_fav(user, rmv_data, table_name):
 
 
 # =========== db function tests ===========
-#createTable()
+# createTable()
 #
 # add_fav("a", "fav0", "favRest")
 # add_fav("a", "fav1", "favRest")
