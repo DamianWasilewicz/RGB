@@ -90,8 +90,8 @@ def recipePath():
     try:
         # data = db.get_fav(session["logged_in"], "favRec")
         # print(data)
-        rv_data = db.get_RV(session["logged_in"], "RVRec")
-        return render_template("recipePath.html", user=session["logged_in"], favs = db.get_fav(session["logged_in"], "favRec"), RV_data = rv_data)
+        rv_data = db.get_RV(session["logged_in"])
+        return render_template("recipePath.html", user=session["logged_in"], favs = db.get_fav(session["logged_in"]), RV_data = rv_data)
     except:
         return redirect(url_for("home"))
 
@@ -127,7 +127,7 @@ def recipe():
         recID = request.args["id"]
         data = info.getRecs(recID)
         fav_data = data[0].replace(" ", "{~}") + "||" + recID
-        db.add_RV(session["logged_in"], data[0], "RVRec", recID)
+        db.add_RV(session["logged_in"], data[0], recID)
         fav_rmv = db.check_exist(session["logged_in"], data[0], "favRec")
         return render_template("recipe.html", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = fav_rmv, id=recID)
     except:
@@ -157,7 +157,7 @@ def addFav():
             return redirect(url_for("home"))
         data = info.getRecs(recID)
         username = session["logged_in"]
-        db.add_fav(username, info_name, recID, "favRec")
+        db.add_fav(username, info_name, recID)
         return redirect(url_for("recipe", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = True, id=recID))
     except:
         flash("Unable to add favorite")
@@ -179,7 +179,7 @@ def removeFav():
             return redirect(url_for("home"))
         data = info.getRecs(recID)
         username = session["logged_in"]
-        db.remove_fav(username, info_name, "favRec")
+        db.remove_fav(username, info_name)
         return redirect(url_for("recipe", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = False, id=recID))
     except:
         flash("Unable to remove favorite")
@@ -198,7 +198,7 @@ def processNutrients():
             data = info.getRecs(request.args["id"])
             recID = request.args["id"]
             fav_data = data[0].replace(" ", "{~}") + "||" + recID
-            db.add_RV(session["logged_in"], data[0], "RVRec", recID)
+            db.add_RV(session["logged_in"], data[0], recID)
             fav_rmv = db.check_exist(session["logged_in"], data[0], "favRec")
             return redirect(url_for("recipe", recipe=data, user=session["logged_in"], fav = fav_data, fav_or_rmv = fav_rmv, id=recID))
         return render_template("ingredientList.html", ingredientData = info.searchIngredient(request.args['ingredient']), user=session["logged_in"])
