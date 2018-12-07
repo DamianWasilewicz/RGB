@@ -80,7 +80,7 @@ def home():
 
 @app.route("/fav")
 def show_favorites():
-    return render_template("favorites.html", user=session["logged_in"], recipe=db.get_fav(session["logged_in"], "favRec"))
+    return render_template("favorites.html", user=session["logged_in"], recipe=db.get_fav(session["logged_in"]))
 #----------- Recipe Routes-----
 
 #Displays home page
@@ -89,8 +89,8 @@ def recipePath():
     """Ask user for an ingredient the recipe has to include."""
     # data = db.get_fav(session["logged_in"], "favRec")
     # print(data)
-    rv_data = db.get_RV(session["logged_in"], "RVRec")
-    return render_template("recipePath.html", user=session["logged_in"], favs = db.get_fav(session["logged_in"], "favRec"), RV_data = rv_data)
+    rv_data = db.get_RV(session["logged_in"])
+    return render_template("recipePath.html", user=session["logged_in"], favs = db.get_fav(session["logged_in"]), RV_data = rv_data)
 
 @app.route("/processIngredient")
 def processIngredient():
@@ -113,10 +113,10 @@ def recipe():
     if info.getRecs(request.args["id"]) is None:
         flash("API key limit exceeded")
         return redirect(url_for("home"))
-    recID = request.args["id"]        
+    recID = request.args["id"]
     data = info.getRecs(recID)
     fav_data = data[0].replace(" ", "{~}") + "||" + recID
-    db.add_RV(session["logged_in"], data[0], "RVRec", recID)
+    db.add_RV(session["logged_in"], data[0], recID)
     fav_rmv = db.check_exist(session["logged_in"], data[0], "favRec")
     return render_template("recipe.html", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = fav_rmv, id=recID)
 
@@ -138,10 +138,10 @@ def addFav():
             # print(each[0])
     if info.getRecs(recID) is None:
         flash("API key limit exceeded")
-        return redirect(url_for("home"))               
+        return redirect(url_for("home"))
     data = info.getRecs(recID)
     username = session["logged_in"]
-    db.add_fav(username, info_name, recID, "favRec")
+    db.add_fav(username, info_name, recID)
     return redirect(url_for("recipe", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = True, id=recID))
 
 @app.route("/removeFav", methods = ["GET", "POST"])
@@ -155,10 +155,10 @@ def removeFav():
             info_name = each[0].replace("{~}", " ")
     if info.getRecs(recID) is None:
         flash("API key limit exceeded")
-        return redirect(url_for("home"))        
+        return redirect(url_for("home"))
     data = info.getRecs(recID)
     username = session["logged_in"]
-    db.remove_fav(username, info_name, "favRec")
+    db.remove_fav(username, info_name)
     return redirect(url_for("recipe", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = False, id=recID))
 
 #----------- USDA Routes-----
@@ -166,13 +166,13 @@ def removeFav():
 def processNutrients():
     if info.getRecs(request.args["id"]) is None or info.searchIngredient(request.args["ingredient"]) is None:
         flash("API key limit exceeded")
-        return redirect(url_for("home"))    
+        return redirect(url_for("home"))
     if request.args["ingredient"].strip() == "":
         flash("Please insert text")
         data = info.getRecs(request.args["id"])
         recID = request.args["id"]
         fav_data = data[0].replace(" ", "{~}") + "||" + recID
-        db.add_RV(session["logged_in"], data[0], "RVRec", recID)
+        print(db.add_RV(session["logged_in"], data[0], recID))
         fav_rmv = db.check_exist(session["logged_in"], data[0], "favRec")
         return redirect(url_for("recipe", recipe=data, user=session["logged_in"], fav = fav_data, fav_or_rmv = fav_rmv, id=recID))
     return render_template("ingredientList.html", ingredientData = info.searchIngredient(request.args['ingredient']), user=session["logged_in"])
@@ -198,7 +198,7 @@ def processCity():
         return redirect(url_for("restaurantPath"))
     if info.getTypeDict(request.args["city"], "cities") is None:
         flash("API key limit exceeded")
-        return redirect(url_for("home"))        
+        return redirect(url_for("home"))
     return render_template("cityList.html", cityList=info.getTypeDict(request.args["city"], "cities"), user=session["logged_in"])
 
 @app.route("/city")
@@ -206,7 +206,7 @@ def city():
     """Show the choices for establishments or cuisines."""
     if info.getTypeDict(request.args["id"],"establishments") is None or info.getTypeDict(request.args["id"],"cuisines") is None:
         flash("API key limit exceeded")
-        return redirect(url_for("home"))        
+        return redirect(url_for("home"))
     return render_template("restaurantQuery.html", city=request.args["id"],
     establishmentList=info.getTypeDict(request.args["id"],"establishments"),
     cuisineList=info.getTypeDict(request.args["id"],"cuisines"), user=session["logged_in"])
