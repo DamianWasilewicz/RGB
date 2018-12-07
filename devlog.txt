@@ -243,6 +243,14 @@ fixed bugs relating to white space in usda path
 added try and catch blocks for every api method
 ==============================================================
 
+choiS -- 2018-12-06 23:16
+--------------------------------------------------------------
+cleaned up the data base tables and functions
+added remove and get fav methods
+fixed db errors for RV limit
+added to favorites.html and recipe path for RV and fav data
+==============================================================
+
 liaoJ -- 2018-12-06 01:15
 --------------------------------------------------------------
 Finished css for all recipe pages, ingredient pages, and favorites page
