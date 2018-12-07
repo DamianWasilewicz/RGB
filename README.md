@@ -36,7 +36,7 @@ Skeleton for `api.json`:
 #### API information
 Three APIs are used in this project:
 ##### Food2Fork
-* Provides ingredients to recipes
+* Provide ingredients to recipes
 * Sign up for a free account on the [documentation page](https://www.food2fork.com/about/api)
 ##### USDA Nutrients
 * Provide nutritional information on given ingredients
