@@ -30,7 +30,10 @@ Skeleton for `api.json`:
 ```
 To learn where to procure each api key, look below.
 Run these commands in the terminal when in this root directory.
-   `$ touch keys.json` and `$ echo { } > keys.json`
+   ```
+   $ touch keys.json
+   $ echo { } > keys.json
+   ```
 7. Run `$ python app.py`
 8. Launch the root route (http://127.0.0.1:5000/) in your browser to go to the login page.
 #### API information
