@@ -126,7 +126,7 @@ def get_RV(user, table_name):
         #print(entry[1]) -> id
         RV_data[entry[1]] = [entry[0], entry[2]]
     #sort data by its id
-    temp_data = sorted(RV_data)
+    temp_data = sorted(RV_data, reverse = True)
     print(temp_data)
     ret_data = [];
     for each in temp_data:
