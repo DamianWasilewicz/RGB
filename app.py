@@ -98,6 +98,9 @@ def processIngredient():
     if request.args["ingredient"].strip() == "":
         flash("Please insert text")
         return redirect(url_for("recipePath"))
+    if info.searchRecs(request.args["ingredient"]) is None:
+        flash("API key limit exceeded")
+        return redirect(url_for("home"))
     return render_template("recipeList.html", recipeData=info.searchRecs(request.args["ingredient"]), user=session["logged_in"])
 
 @app.route("/recipe")
@@ -107,8 +110,11 @@ def recipe():
     # data[1] = list of ingredients
     # data[2] = recipe link
     # data[3] = img url
-    data = info.getRecs(request.args["id"])
-    recID = request.args["id"]
+    if info.getRecs(request.args["id"]) is None:
+        flash("API key limit exceeded")
+        return redirect(url_for("home"))
+    recID = request.args["id"]        
+    data = info.getRecs(recID)
     fav_data = data[0].replace(" ", "{~}") + "||" + recID
     db.add_RV(session["logged_in"], data[0], "RVRec", recID)
     fav_rmv = db.check_exist(session["logged_in"], data[0], "favRec")
@@ -130,6 +136,9 @@ def addFav():
             recID = each[1]
             info_name = each[0].replace("{~}", " ")
             # print(each[0])
+    if info.getRecs(recID) is None:
+        flash("API key limit exceeded")
+        return redirect(url_for("home"))               
     data = info.getRecs(recID)
     username = session["logged_in"]
     db.add_fav(username, info_name, recID, "favRec")
@@ -144,6 +153,9 @@ def removeFav():
             each = each.split("||")
             recID = each[1]
             info_name = each[0].replace("{~}", " ")
+    if info.getRecs(recID) is None:
+        flash("API key limit exceeded")
+        return redirect(url_for("home"))        
     data = info.getRecs(recID)
     username = session["logged_in"]
     db.remove_fav(username, info_name, "favRec")
@@ -152,6 +164,9 @@ def removeFav():
 #----------- USDA Routes-----
 @app.route("/processNutrients")
 def processNutrients():
+    if info.getRecs(request.args["id"]) is None or info.searchIngredient(request.args["ingredient"]) is None:
+        flash("API key limit exceeded")
+        return redirect(url_for("home"))    
     if request.args["ingredient"].strip() == "":
         flash("Please insert text")
         data = info.getRecs(request.args["id"])
@@ -164,7 +179,10 @@ def processNutrients():
 
 @app.route("/ingredient")
 def ingredient():
-	return render_template("ingredient.html", ingredient = info.getInfo(request.args['ndbno']), user=session["logged_in"])
+    if info.getInfo(request.args["ndbno"]) is None:
+        flash("API key limit exceeded")
+        return redirect(url_for("home"))
+    return render_template("ingredient.html", ingredient = info.getInfo(request.args['ndbno']), user=session["logged_in"])
 
 #----------- Restaurants Routes-----
 @app.route("/restaurantPath")
@@ -178,11 +196,17 @@ def processCity():
     if request.args["city"].strip() == "":
         flash("Please insert text")
         return redirect(url_for("restaurantPath"))
+    if info.getTypeDict(request.args["city"], "cities") is None:
+        flash("API key limit exceeded")
+        return redirect(url_for("home"))        
     return render_template("cityList.html", cityList=info.getTypeDict(request.args["city"], "cities"), user=session["logged_in"])
 
 @app.route("/city")
 def city():
     """Show the choices for establishments or cuisines."""
+    if info.getTypeDict(request.args["id"],"establishments") is None or info.getTypeDict(request.args["id"],"cuisines") is None:
+        flash("API key limit exceeded")
+        return redirect(url_for("home"))        
     return render_template("restaurantQuery.html", city=request.args["id"],
     establishmentList=info.getTypeDict(request.args["id"],"establishments"),
     cuisineList=info.getTypeDict(request.args["id"],"cuisines"), user=session["logged_in"])
@@ -196,6 +220,9 @@ def processQuery():
         establishment = None
     if cuisine == "none":
         cuisine = None
+    if info.searchRestuarant(request.args["city"], establishment, cuisine) is None:
+        flash("API key limit exceeded")
+        return redirect(url_for("home"))
     return render_template("restaurant.html", restaurantList=info.searchRestuarant(request.args["city"], establishment, cuisine), user=session["logged_in"])
 
 if __name__ == "__main__":

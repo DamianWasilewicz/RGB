@@ -240,4 +240,5 @@ fixed bugs relating to white space in recipe path and restaurant path
 liK -- 2018-12-06 22:19
 --------------------------------------------------------------
 fixed bugs relating to white space in usda path
+added try and catch blocks for every api method
 ==============================================================
