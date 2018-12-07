@@ -20,7 +20,7 @@ Restaurants can be searched by cuisine or type of establishment. The user then s
    * Deactivate it by running `$ deactivate`
 5. Install Flask and wheel with `$ pip install flask` and `$ pip install wheel` (this is a Flask application)
 6. Create an `api.json` to store your api keys in. Python will look for only that file, so the file name must match.
-   Skeleton for `api.json`:
+Skeleton for `api.json`:
 ```
 {
   "f2f" : "YOUR_API_KEY",
@@ -28,8 +28,8 @@ Restaurants can be searched by cuisine or type of establishment. The user then s
   "usda" : "YOUR_API_KEY"
 }
 ```
-   To learn where to procure each api key, look below.
-   Run these commands in the terminal when in this root directory.
+To learn where to procure each api key, look below.
+Run these commands in the terminal when in this root directory.
    `$ touch keys.json` and `$ echo { } > keys.json`
 7. Run `$ python app.py`
 8. Launch the root route (http://127.0.0.1:5000/) in your browser to go to the login page.
