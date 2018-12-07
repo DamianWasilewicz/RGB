@@ -11,7 +11,7 @@ def createTable():
     command = "CREATE TABLE favRest (username TEXT, restaurant TEXT)"
     c.execute(command)
 
-    command = "CREATE TABLE favRec (username TEXT, recipe TEXT, id INTEGER)"
+    command = "CREATE TABLE favRec (username TEXT, recipe TEXT, id TEXT)"
     c.execute(command)
 
     command = "CREATE TABLE RVRest (username TEXT, restaurant TEXT, id INTEGER)"
