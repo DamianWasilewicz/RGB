@@ -117,7 +117,7 @@ def get_RV(user):
     #sort data by its id
     temp_data = sorted(RV_data, reverse = True)
     #print(temp_data)
-    ret_data = [];
+    ret_data = []
     for each in temp_data:
         smth = RV_data.get(each, "")
         ret_data.append( smth )

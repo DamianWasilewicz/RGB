@@ -6,7 +6,7 @@
 <h3 class="titleMsg"> Recipes </h3>
 <div class="center search_group">
 {% for each in recipe %}
-    <a href = "/recipe?id={{each[1]}}""><button type="submit" id="fav_rec_btn">{{each[0]}}</button></a>
+    <a href = "/recipe?id={{each[1]}}"><button type="submit" id="fav_rec_btn">{{each[0]}}</button></a>
 {% endfor %}
 </div>
 {% endblock %}
