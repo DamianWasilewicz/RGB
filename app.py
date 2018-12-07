@@ -80,7 +80,7 @@ def home():
 
 @app.route("/fav")
 def show_favorites():
-    return render_template("favorites.html", user=session["logged_in"], recipe=db.get_fav(session["logged_in"], "favRec"))
+    return render_template("favorites.html", user=session["logged_in"], recipe=db.get_fav(session["logged_in"]))
 #----------- Recipe Routes-----
 
 #Displays home page
