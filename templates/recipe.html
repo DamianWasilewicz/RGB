@@ -10,22 +10,25 @@
       {{recipe[0]}}</h2>
     <div class="recipe_box">
         <div class="card">
-            <div class="center"><img class="card-img-top" src="{{recipe[3]}}" alt="{{recipe[0]}}" id="recipe_img"><br>
+            <div class="center"><img class="card-img-top" src="{{recipe[3]}}" alt="{{recipe[0]}}" id="recipe_img"></div><br>
             <div class="card-body">
-                <h5 class="card-title">What You Need</h5>
+                <h5 class="card-title" id="ig_heading">What You Need</h5>
+                <hr>
+                <ul id="ig_list">
             {% for ingredient in recipe[1] %}
-                {{ingredient}}<br>
+                <li>{{ingredient}}</li>
             {% endfor %}
-            <h5> <a href="{{recipe[2]}}">directions</a></h5>
-        	<br><br>
-            </div>
-        	See an interesting ingredient? Look it up to find its nutritional info!
+            </ul>
+            <hr>
+            <h5 id="ig_heading"> Have everything ready? Let's <a href="{{recipe[2]}}">get started</a>!</h5>
+        	<br>
+        	<h5 class="ig_heading">Curious about an ingredient? Look it up to find its nutritional info!</h5>
         	 <form action="/processNutrients">
-                <input type="text" name="ingredient">
+                <input type="text" name="ingredient" placeholder="eg: butter" required>
                 <input type="hidden" name="id" value={{id}}>
-                <div class="center"><button type="submit" class="btn btn-warning" id="search_btn">Submit</button></div>
+                <button type="submit" class="btn btn-info">search</button>
             </form>
-            {% if fav_or_rmv %}
+            <div class="center">{% if fav_or_rmv %}
               <br>
               <form action="/removeFav" method = "POST">
                   <input class="btn btn-danger" type="submit" name = {{fav}} value="Remove from favorites">
@@ -36,6 +39,7 @@
                   <input class="btn btn-danger" type="submit" name = {{fav}} value="Add to favorites">
               </form>
             {% endif %}
+            </div>
             </div>
         </div>
     </div>

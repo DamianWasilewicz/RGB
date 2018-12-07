@@ -3,10 +3,11 @@
 {% block title %} Ingredient List {% endblock %}
 
 {% block content %}
-
+<h2 class="titleMsg">What are you looking for?</h2>
+<div class="center search_group">
   {% for ingredient in ingredientData %}
-    <a href="/ingredient?ndbno={{ingredientData[ingredient]}}">{{ingredient}}</a><br>
+    <a href="/ingredient?ndbno={{ingredientData[ingredient]}}"><button type="submit" id="ig_btn">{{ingredient}}</button></a>
   {% endfor %}
-
+</div>
 
 {% endblock %}

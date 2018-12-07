@@ -3,10 +3,17 @@
 {% block title %} Ingredient Info {% endblock %}
 
 {% block content %}
-
-  {% for nutrient in ingredient %}
-    {{nutrient}} = {{ingredient[nutrient]}}<br>
-  {% endfor %}
-
-
+<h2 class="titleMsg"> What's Actually in Your Food </h2>
+<div class="search_group">
+<table class="table nut_info">
+    <tbody>
+    {% for nutrient in ingredient %}
+    <tr>
+        <td>{{nutrient}}</td>
+        <td>{{ingredient[nutrient]}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
 {% endblock %}
