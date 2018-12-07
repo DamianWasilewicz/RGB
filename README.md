@@ -9,7 +9,6 @@ Shin Bamba (PM), Kenny Li, Soojin Choi, Joyce Liao
 Our website will allow users to create an account and look for either a recipe to cook at home or a restaurant to eat at.
 Recipes can be searched by ingredients or recipe name. The results will display a list of recipes that matches the user's input. The user then selects a recipe to view its ingredients, instructions, and nutritional data of the ingredients.
 Restaurants can be searched by cuisine or type of establishment. The user then selects a restaurant to view its information, which includes ratings, address, and menu.
-
 ### Launch Instructions
 #### Running Flask App
 1. Go to [root repository](https://github.com/shinbamba/RGB) and click "Clone or Download" button
@@ -21,11 +20,18 @@ Restaurants can be searched by cuisine or type of establishment. The user then s
    * Deactivate it by running `$ deactivate`
 5. Install Flask and wheel with `$ pip install flask` and `$ pip install wheel` (this is a Flask application)
 6. Create an `api.json` to store your api keys in. Python will look for only that file, so the file name must match.
+   Skeleton for `api.json`:
+```{
+  "f2f" : "YOUR_API_KEY",
+  "zomato" : "YOUR_API_KEY",
+  "usda" : "YOUR_API_KEY"
+}
+```
+   To learn where to procure each api key, look below.
    Run these commands in the terminal when in this root directory.
    `$ touch keys.json` and `$ echo { } > keys.json`
 7. Run `$ python app.py`
 8. Launch the root route (http://127.0.0.1:5000/) in your browser to go to the login page.
-
 #### API information
 Three APIs are used in this project:
 ##### Food2Fork
