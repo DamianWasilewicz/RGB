@@ -104,9 +104,9 @@ def get_fav(user, table_name):
     else:
         info_data = "recipe"
 
-    temp = c.execute("SELECT {} FROM {} WHERE username = '{}'".format(info_data, table_name, user)).fetchall()
+    temp = c.execute("SELECT {}, id FROM {} WHERE username = '{}'".format(info_data, table_name, user)).fetchall()
     for entry in temp:
-        fav_data.append(entry[0])
+        fav_data.append(entry)
     db.close()
     return fav_data
 

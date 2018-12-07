@@ -3,7 +3,11 @@
 {% block title %} Recipe {% endblock %}
 
 {% block content %}
-    <h2 class="titleMsg">{{recipe[0]}}</h2>
+  <h2 class="titleMsg">
+    {% if fav_or_rmv %}
+    <span>&#9733;</span>
+    {% endif %}
+      {{recipe[0]}}</h2>
     <div class="recipe_box">
         <div class="card">
             <div class="center"><img class="card-img-top" src="{{recipe[3]}}" alt="{{recipe[0]}}" id="recipe_img"><br>
@@ -20,10 +24,18 @@
                 <input type="text" name="ingredient">
                 <input type="hidden" name="id" value={{id}}>
                 <div class="center"><button type="submit" class="btn btn-warning" id="search_btn">Submit</button></div>
-              </form>
-        	  <form action="/addFav">
-                <input class="btn btn-danger" type="submit" name = {{fav}} value="Add to favorites" {{button}}>
             </form>
+            {% if fav_or_rmv %}
+              <br>
+              <form action="/removeFav" method = "POST">
+                  <input class="btn btn-danger" type="submit" name = {{fav}} value="Remove from favorites">
+              </form>
+
+            {% else %}
+              <form action="/addFav" method = "POST">
+                  <input class="btn btn-danger" type="submit" name = {{fav}} value="Add to favorites">
+              </form>
+            {% endif %}
             </div>
         </div>
     </div>

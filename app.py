@@ -80,7 +80,7 @@ def home():
 
 @app.route("/fav")
 def show_favorites():
-    return render_template("favorites.html", user=session["logged_in"], recipe=db.get_fav(session[logged_in], "favRec"))
+    return render_template("favorites.html", user=session["logged_in"], recipe=db.get_fav(session["logged_in"], "favRec"))
 #----------- Recipe Routes-----
 
 #Displays home page
@@ -113,18 +113,22 @@ def recipe():
     fav_data = data[0].replace(" ", "{~}") + "||" + recID
     #print(fav_data)
     db.add_RV(session["logged_in"], data[0], "RVRec", recID)
-    if (db.check_exist(session["logged_in"], data[0], "favRec")):
-        button_status = "disabled"
-    else:
-        button_status = ""
-    return render_template("recipe.html", recipe=data, user=session["logged_in"], fav = fav_data, button = button_status, id=request.args["id"])
+    fav_rmv = db.check_exist(session["logged_in"], data[0], "favRec")
+    return render_template("recipe.html", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = fav_rmv)
 
-@app.route("/addFav")
+@app.route("/addFav", methods = ["GET", "POST"])
 def addFav():
-    print(request.args)
-    for each in request.args:
+    print ("request.args: " )
+    print ( request.args )
+    print ( "\n ------------")
+
+
+    print ("request.form: " )
+    print ( request.form )
+    print ( "\n -----------")
+    for each in request.form:
         print(each)
-        if (request.args[each] == 'Add to favorites'):
+        if (request.form[each] == 'Add to favorites'):
             fav_data = each
             each = each.split("||")
             recID = each[1]
@@ -133,7 +137,21 @@ def addFav():
     data = info.getRecs(recID)
     username = session["logged_in"]
     db.add_fav(username, info_name, recID, "favRec")
-    return render_template("recipe.html", recipe= data, user=session["logged_in"], fav = fav_data)
+    return render_template("recipe.html", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = True)
+
+@app.route("/removeFav", methods = ["GET", "POST"])
+def removeFav():
+    for each in request.form:
+        print(each);
+        if (request.form[each] == 'Remove from favorites'):
+            fav_data = each
+            each = each.split("||")
+            recID = each[1]
+            info_name = each[0].replace("{~}", " ")
+    data = info.getRecs(recID)
+    username = session["logged_in"]
+    db.remove_fav(username, info_name, "favRec")
+    return render_template("recipe.html", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = False)
 
 #----------- USDA Routes-----
 @app.route("/processNutrients")
@@ -148,7 +166,7 @@ def processNutrients():
             button_status = "disabled"
         else:
             button_status = ""
-        return render_template("recipe.html", recipe=data, user=session["logged_in"], fav = fav_data, button = button_status, id=request.args["id"])        
+        return render_template("recipe.html", recipe=data, user=session["logged_in"], fav = fav_data, button = button_status, id=request.args["id"])
     return render_template("ingredientList.html", ingredientData = info.searchIngredient(request.args['ingredient']), user=session["logged_in"])
 
 @app.route("/ingredient")

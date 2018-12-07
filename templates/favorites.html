@@ -1,4 +1,4 @@
-{% extends header.html %}
+{% extends "header.html" %}
 
 {% block title %} Favorites {% endblock %}
 
@@ -6,6 +6,7 @@
 <h3> Recipes </h3>
 <ul>
 {% for each in recipe %}
-<li>{{each}}</li>
+<li> <a href = "http://127.0.0.1:5000/recipe?id={{each[1]}}""> {{each[0]}} </a> </li>
+{% endfor %}
 </ul>
 {% endblock %}
