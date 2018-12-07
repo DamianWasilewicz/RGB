@@ -234,5 +234,10 @@ Finished css for all restaurant html pages
 
 liK -- 2018-12-06 14:10
 --------------------------------------------------------------
-fixed bugs relating to white space
+fixed bugs relating to white space in recipe path and restaurant path
+==============================================================
+
+liK -- 2018-12-06 22:19
+--------------------------------------------------------------
+fixed bugs relating to white space in usda path
 ==============================================================

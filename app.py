@@ -87,8 +87,8 @@ def show_favorites():
 @app.route("/recipePath")
 def recipePath():
     """Ask user for an ingredient the recipe has to include."""
-    data = db.get_fav(session["logged_in"], "favRec")
-    print(data)
+    # data = db.get_fav(session["logged_in"], "favRec")
+    # print(data)
     return render_template("recipePath.html", user=session["logged_in"], favs = db.get_fav(session["logged_in"], "favRec"))
 
 @app.route("/processIngredient")
@@ -102,47 +102,42 @@ def processIngredient():
 @app.route("/recipe")
 def recipe():
     """Display content of a selected recipe."""
-    #data[0] = title
-    #data[1] = list of ingredients
-    #data[2] = recipe link
-    #data[3] = img url
+    # data[0] = title
+    # data[1] = list of ingredients
+    # data[2] = recipe link
+    # data[3] = img url
     data = info.getRecs(request.args["id"])
-    #print("data:")
-    #print(data)
     recID = request.args["id"]
     fav_data = data[0].replace(" ", "{~}") + "||" + recID
-    #print(fav_data)
     db.add_RV(session["logged_in"], data[0], "RVRec", recID)
     fav_rmv = db.check_exist(session["logged_in"], data[0], "favRec")
-    return render_template("recipe.html", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = fav_rmv)
+    return render_template("recipe.html", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = fav_rmv, id=recID)
 
 @app.route("/addFav", methods = ["GET", "POST"])
 def addFav():
-    print ("request.args: " )
-    print ( request.args )
-    print ( "\n ------------")
-
-
-    print ("request.form: " )
-    print ( request.form )
-    print ( "\n -----------")
+    # print ("request.args: " )
+    # print ( request.args )
+    # print ( "\n ------------")
+    # print ("request.form: " )
+    # print ( request.form )
+    # print ( "\n -----------")
     for each in request.form:
-        print(each)
+        # print(each)
         if (request.form[each] == 'Add to favorites'):
             fav_data = each
             each = each.split("||")
             recID = each[1]
             info_name = each[0].replace("{~}", " ")
-            print(each[0])
+            # print(each[0])
     data = info.getRecs(recID)
     username = session["logged_in"]
     db.add_fav(username, info_name, recID, "favRec")
-    return render_template("recipe.html", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = True)
+    return redirect(url_for("recipe", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = True, id=recID))
 
 @app.route("/removeFav", methods = ["GET", "POST"])
 def removeFav():
     for each in request.form:
-        print(each);
+        # print(each)
         if (request.form[each] == 'Remove from favorites'):
             fav_data = each
             each = each.split("||")
@@ -151,7 +146,7 @@ def removeFav():
     data = info.getRecs(recID)
     username = session["logged_in"]
     db.remove_fav(username, info_name, "favRec")
-    return render_template("recipe.html", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = False)
+    return redirect(url_for("recipe", recipe= data, user=session["logged_in"], fav = fav_data, fav_or_rmv = False, id=recID))
 
 #----------- USDA Routes-----
 @app.route("/processNutrients")
@@ -162,11 +157,8 @@ def processNutrients():
         recID = request.args["id"]
         fav_data = data[0].replace(" ", "{~}") + "||" + recID
         db.add_RV(session["logged_in"], data[0], "RVRec", recID)
-        if (db.check_exist(session["logged_in"], data[0], "favRec")):
-            button_status = "disabled"
-        else:
-            button_status = ""
-        return render_template("recipe.html", recipe=data, user=session["logged_in"], fav = fav_data, button = button_status, id=request.args["id"])
+        fav_rmv = db.check_exist(session["logged_in"], data[0], "favRec")
+        return redirect(url_for("recipe", recipe=data, user=session["logged_in"], fav = fav_data, fav_or_rmv = fav_rmv, id=recID))
     return render_template("ingredientList.html", ingredientData = info.searchIngredient(request.args['ingredient']), user=session["logged_in"])
 
 @app.route("/ingredient")
