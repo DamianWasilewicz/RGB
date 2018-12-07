@@ -2,6 +2,12 @@
 .center {
     text-align: center;
 }
+
+.msg {
+    width:80%;
+    margin: auto;
+    margin-top:5px;
+}
 /* ======================== */
 
 /* login and register */
@@ -149,3 +155,4 @@
     color: #ffffff;
     background-color: #d5aba4;
 }
+/* ======================== */

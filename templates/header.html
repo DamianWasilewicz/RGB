@@ -1,10 +1,12 @@
 {% extends "shell.html" %}
 
 {% block alert %}
+<div class="msg">
 {% set msgs = get_flashed_messages() %}
 {% for each in msgs %}
-  <div class="alert alert-danger" role="alert">{{each}}</div>
+  <div class="alert alert-warning" role="alert" id="msg">{{each}}</div>
 {% endfor %}
+</div>
 {% endblock %}
 
 {% block login %}

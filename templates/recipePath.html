@@ -5,21 +5,18 @@
 {% block content %}
 <div class="search_group">
   <h2 class="titleMsg"> What ingredient do you have?</h2>
-    {% set msgs = get_flashed_messages() %}
-    {% for each in msgs %}
-        <div class="alert alert-warning" role="alert">{{each}}</div>
-
-    {% endfor %}
     <form action="/processIngredient">
         <div class="form-group center">
             <input type="text" name="ingredient" class="form-control" placeholder="eg: egg" required>
         </div>
         <div class="center"><button type="submit" class="btn btn-warning" id="search_btn">Get Recipes</button></div>
     </form>
-    {% for each in RV_data %}
-        <a href = "http://127.0.0.1:5000/recipe?id={{each[1]}}""> {{each[0]}} </a>
-        <br>
-
-    {% endfor %}
+</div>
+<hr>
+<h4 class="titleMsg"> Recently Viewed Recipes</h4>
+<div class="center">
+{% for each in RV_data %}
+    <a href = "/recipe?id={{each[1]}}"><button type="submit" id="fav_rec_btn">{{each[0]}}</button></a>
+{% endfor %}
 </div>
 {% endblock %}
